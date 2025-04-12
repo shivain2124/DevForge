@@ -5,6 +5,7 @@ import Login from './Pages/Login'
 import SignUp from './Pages/SignUp'
 import Snippets from './Pages/Snippets'
 import Navbar from './Components/Navbar'
+import AuthChoice from './Pages/AuthChoice'
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
     <Navbar/>
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/auth" element={<AuthChoice/>} />
       <Route path="/login" element={<Login/>} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/snippets" element={<Snippets />} />
