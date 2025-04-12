@@ -38,7 +38,14 @@ const Home = () => {
       {/* Horizontal line after section */}
       <hr className="mt-16 border-gray-700 w-3/4 md:w-1/2 mx-auto" />
 
+          <footer className="mt-24 text-center text-gray-500 text-sm">
+           © 2025 DevForge. All rights reserved.
+        </footer>
+
+
     </div>
+
+    
   )
 }
 
