@@ -4,7 +4,7 @@ import Home from './Pages/Home'
 import Login from './Pages/Login'
 import SignUp from './Pages/SignUp'
 import Snippets from './Pages/Snippets'
-import Navbar from './Components/Navbar'
+import Navbar from './components/Navbar'
 import AuthChoice from './Pages/AuthChoice'
 
 
@@ -19,7 +19,16 @@ function App() {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/snippets" element={<Snippets />} />
     </Routes>
+
+    <div style={{ height: '2000px' }} className="bg-gray-800">
+  <p className="text-center text-white pt-10">Scroll down to test navbar visibility/fixed position</p>
+</div>
+
+
+
     </>
+
+
 
   );
 }
