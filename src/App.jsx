@@ -20,9 +20,9 @@ function App() {
       <Route path="/snippets" element={<Snippets />} />
     </Routes>
 
-    <div style={{ height: '2000px' }} className="bg-gray-800">
+    {/* <div style={{ height: '2000px' }} className="bg-gray-800">
   <p className="text-center text-white pt-10">Scroll down to test navbar visibility/fixed position</p>
-</div>
+</div> */}
 
 
 
