@@ -1,6 +1,5 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import WhatDevForgeCanDo from '../components/WhatDevForgeCanDo';
 import FeatureSection from '../components/FeatureSection';
 
 const Home = () => {

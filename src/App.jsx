@@ -6,6 +6,7 @@ import SignUp from './Pages/SignUp'
 import Snippets from './Pages/Snippets'
 import Navbar from './components/Navbar'
 import AuthChoice from './Pages/AuthChoice'
+import Compiler from './Pages/Compiler'
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Route path="/login" element={<Login/>} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/snippets" element={<Snippets />} />
+      <Route path="/compiler" element={<Compiler/>} />
     </Routes>
 
     {/* <div style={{ height: '2000px' }} className="bg-gray-800">
