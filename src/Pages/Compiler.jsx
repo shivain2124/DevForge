@@ -1,17 +1,18 @@
 import React,{useState} from 'react'
 
 const languageMap = {
-    cpp: 12,         // C++ (GCC 9.2.0)
-    c: 7,            // C (GCC 9.2.0)
-    java: 25,        // Java (OpenJDK 13.0.1)
-    python: 38,      // Python (3.8.1)
-    javascript: 26,  // JavaScript (Node.js 12.14.0)
-    csharp: 8,       // C# (Mono 6.6.0.161)
-    go: 22,          // Go (1.13.5)
-    ruby: 40,        // Ruby (2.7.0)
-    php: 34,         // PHP (7.4.1)
-    swift: 44        // Swift (5.2.3)
+    cpp: 54,      // C++ (GCC 9.2.0)
+    java: 62,     // Java (OpenJDK 13.0.1)
+    python: 71,   // Python (3.8.1)
+    javascript: 63, // JavaScript (Node.js 12.14.0)
+    c: 50,        // C (GCC 9.2.0)
+    ruby: 72,     // Ruby (2.7.0)
+    go: 60,       // Go (1.13.5)
+    rust: 73,     // Rust (1.40.0)
+    swift: 83,    // Swift (5.2.3)
+    kotlin: 78    // Kotlin (1.3.70)
   };
+  
   
   
 
@@ -26,43 +27,73 @@ const Compiler = () => {
     const JUDGE0_API_URL='https://judge0-ce.p.rapidapi.com'
     const RAPIDAPI_KEY='be0b0e2eabmsh3cff064fdff4f4ap180e74jsnd129d3856f32'
     const RAPIDAPI_HOST='judge0-ce.p.rapidapi.com'
-
-    const handleRunCode = async()=>{
+    
+    const handleRunCode = async () => {
         setIsLoading(true);
         setOutput('');
         setError('');
-    
-
-    try{
-        const response = await fetch(`${JUDGE0_API_URL}/submissions?base64_encoded=true`, {
+      
+        try {
+          const postResponse = await fetch(`${JUDGE0_API_URL}/submissions?base64_encoded=true&wait=false`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'X-RapidAPI-Key': RAPIDAPI_KEY,
-                'X-RapidAPI-Host': RAPIDAPI_HOST,
+              'Content-Type': 'application/json',
+              'X-RapidAPI-Key': RAPIDAPI_KEY,
+              'X-RapidAPI-Host': RAPIDAPI_HOST,
             },
             body: JSON.stringify({
-                language_id: languageMap[language],
-                source_code: btoa(code),
-                stdin: btoa(input),
+              language_id: languageMap[language],
+              source_code: btoa(code),
+              stdin: btoa(input),
             }),
-
-        });
-        const result=await response.json();
-        const {stdout,stderr,compiler_output,status} = result;
-
-        if (status.description !== 'Accepted') {
+          });
+      
+          const { token } = await postResponse.json();
+      
+          // Poll for result
+          let result = null;
+          while (true) {
+            const getResponse = await fetch(`${JUDGE0_API_URL}/submissions/${token}?base64_encoded=true`, {
+              method: 'GET',
+              headers: {
+                'X-RapidAPI-Key': RAPIDAPI_KEY,
+                'X-RapidAPI-Host': RAPIDAPI_HOST,
+              },
+            });
+      
+            result = await getResponse.json();
+      
+            if (result.status.id <= 2) {
+              // In Queue / Processing
+              await new Promise(res => setTimeout(res, 1000));
+            } else {
+              break;
+            }
+          }
+          if (res.status === 429) {
+            alert("Rate limit exceeded. Try again after 24 hours or upgrade your API plan.");
+          }
+          
+      
+          const { stdout, stderr, compile_output, status } = result;
+          console.log(JSON.stringify(result, null, 2));
+      
+          if (status.id === 3) {
+            setOutput(stdout ? atob(stdout) : "No output");
+          } else if (compile_output) {
+            setError("Compilation Error:\n" + atob(compile_output));
+          } else if (stderr) {
+            setError("Runtime Error:\n" + atob(stderr));
+          } else {
             setError(`Error: ${status.description}`);
-        } else{
-            setOutput(stdout || 'No output');
+          }
+        } catch (err) {
+          setError('An error occurred while running the code');
+        } finally {
+          setIsLoading(false);
         }
-    } catch(err){
-        setError('An error occurred while running the code');
-    }
-    finally{
-        setIsLoading(false);
-    }}
-    
+      };
+      
 
   return (
     <div className='min-h-screen p-6 bg-gray-900 text-white'>
@@ -88,9 +119,54 @@ const Compiler = () => {
             </select>
         </div>
 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <h2 className='mb-2 font-semibold'>Code</h2>
+                <textarea
+                    rows={15}
+                    className="w-full p-4 rounded bg-gray-800 text-white font-mono"
+                    placeholder="// Write your code here"
+                    value={code}
+                    onChange={(e) => setCode(e.target.value)}
+          ></textarea>
+
+          <div>
+            <h2 className='mb-2 font-semibold'>Input</h2>
+            <textarea 
+                rows={5}
+                className="w-full p-4 mb-4 rounded bg-gray-800 text-white font-mono"
+                placeholder="Custom input (if any)"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+            ></textarea>
+
+            <button 
+                onClick={handleRunCode}
+                className="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded mb-4"
+                disabled={isLoading}>
+                    {isLoading ? 'Running...' : 'Run Code'}
+                </button>
+
+                {error && (
+            <div className="text-red-500 mt-2 whitespace-pre-wrap">{error}</div>
+          )}
+
+                {output && (
+                    <div>
+                    <h2 className="mt-4 mb-2 font-semibold">Output</h2>
+                    <pre className="bg-gray-800 p-4 rounded text-green-400 whitespace-pre-wrap">
+                        {output}
+                    </pre>
+                    </div>
+                )}
+                </div>
+            </div>
+            {/* console.log(JSON.stringify(result, null, 2)); */}
+        </div>
+
         
     </div>
   )
-}
+};
 
 export default Compiler
