@@ -1,12 +1,17 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React, { use } from 'react'
+import {Link,useLocation} from 'react-router-dom'
 
 
 const Navbar = () => {
+  const location=useLocation();
+  const isCompilerPage=location.pathname.includes('/compiler');
+
   return (
 
 
-    <nav className='sticky top-0 z-10 bg-gray-900 text-white p-4 px-6  border-b border-white/10 md:px-10 lg:px-16 flex flex-col md:flex-row md:items-center md:justify-between'>
+    <nav className={`sticky top-0 z-10 p-4 px-6 text-white border-b border-white/10 md:px-10 lg:px-16 flex flex-col md:flex-row md:items-center md:justify-between 
+        ${isCompilerPage ? 'bg-[#252526] shadow-md' : 'bg-gray-900'}`}
+    >
         {/* logo */}
         <h1 className='text-2xl font-bold mb-2 md:mb-0 md:mr-10'>DevForge</h1>
 
