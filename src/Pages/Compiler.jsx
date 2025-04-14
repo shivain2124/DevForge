@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import MonacoCompiler from '../components/MonacoCompiler';
 
 const languageMap = {
   cpp: 'cpp', // C++ (GCC 9.2.0)
@@ -89,16 +90,25 @@ const Compiler = () => {
       </div>
 
       <div className="flex flex-col md:flex-row gap-6">
+
         {/* Left side (Code) */}
         <div className="flex-1">
-          <h2 className="mb-2 font-semibold">Code</h2>
-          <textarea
+          {/* <textarea
             rows={20}
             className="w-full p-4 rounded bg-gray-800 text-white font-mono"
             placeholder="// Write your code here"
             value={code}
             onChange={(e) => setCode(e.target.value)}
-          ></textarea>
+          ></textarea> */}
+
+          <h2 className="mb-2 font-semibold">Code</h2>
+          <MonacoCompiler
+            language={language}
+            code={code}
+            onCodeChange={setCode}
+          />
+
+
         </div>
 
         {/* Right side (Input and Output) */}
@@ -138,3 +148,13 @@ const Compiler = () => {
 };
 
 export default Compiler;
+
+
+
+{/* <textarea
+            rows={20}
+            className="w-full p-4 rounded bg-gray-800 text-white font-mono"
+            placeholder="// Write your code here"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+          ></textarea> */}
