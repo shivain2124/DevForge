@@ -103,7 +103,6 @@ const Compiler = () => {
 
         {/* Right side (Input and Output) */}
         <div className="flex flex-col flex-none w-full md:w-[40%]">
-          <div className="mb-4"></div>
 
           <div>
             <h2 className="mb-2 font-semibold">Input</h2>
