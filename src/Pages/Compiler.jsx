@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
+import AceEditor from "react-ace";
+import CodeEditor from '../components/CodeEditor';
 
+
+//language map 
 const languageMap = {
   cpp: 'cpp', // C++ (GCC 9.2.0)
   java: 'java', // Java (OpenJDK 13.0.1)
@@ -11,6 +15,18 @@ const languageMap = {
   kotlin: 'kotlin' // Kotlin (1.3.70)
 };
 
+// Map language to Ace editor mode
+const langToMode = {
+  cpp: "c_cpp",
+  java: "java",
+  python: "python",
+  c: "c_cpp",
+  ruby: "ruby",
+  go: "golang",
+  rust: "rust",
+  kotlin: "kotlin"
+};
+
 const Compiler = () => {
   const [language, setLanguage] = useState('java');
   const [code, setCode] = useState('');
@@ -19,8 +35,10 @@ const Compiler = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
+  //piston api url
   const PISTON_API_URL = 'https://emkc.org/api/v1/piston/execute';
 
+  // code running function
   const handleRunCode = async () => {
     setIsLoading(true);
     setOutput('');
@@ -94,13 +112,15 @@ const Compiler = () => {
           {/* Code Block */}
           <div className="flex-1">
             <h2 className="mb-2 font-semibold">Code</h2>
-            <textarea
-              rows={20}
-              className="w-full p-4 rounded bg-gray-800 text-white font-mono"
-              placeholder="// Write your code here"
+            {/* Replace textarea with AceEditor */}
+            <div className="rounded overflow-hidden">
+            <CodeEditor
+              mode={langToMode[language] || "java"}
+              theme="cobalt"
               value={code}
-              onChange={(e) => setCode(e.target.value)}
-            ></textarea>
+              onChange={setCode}
+            />    
+            </div>
           </div>
   
           {/* Input & Output Block */}
@@ -134,7 +154,6 @@ const Compiler = () => {
       </div>
     </div>
   );
-  
 };
 
 export default Compiler;
