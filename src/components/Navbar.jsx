@@ -5,6 +5,10 @@ import './Navbar.css'; // Make sure to create this CSS file for the styles
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
   return (
     <nav className="sticky top-0 z-10 p-4 px-6 text-white border-b border-white/10 md:px-10 lg:px-16 bg-gray-900 flex items-center justify-between">
 
@@ -32,13 +36,13 @@ const Navbar = () => {
           isOpen ? 'flex' : 'hidden'
         } flex-col items-center gap-4 absolute top-16 right-4 bg-gray-800 p-4 rounded-lg md:static md:flex md:flex-row md:gap-10 md:bg-transparent md:p-0 md:rounded-none`}
       >
-        <Link to="/" className="hover:text-yellow-300">
+        <Link to="/" className="hover:text-yellow-300" onClick={closeMenu}>
           Home
         </Link>
-        <Link to="/auth" className="hover:text-yellow-300">
+        <Link to="/auth" className="hover:text-yellow-300" onClick={closeMenu}>
           Login / Sign Up
         </Link>
-        <Link to="/compiler" className="hover:text-yellow-300">
+        <Link to="/compiler" className="hover:text-yellow-300" onClick={closeMenu}>
           Create
         </Link>
       </div>

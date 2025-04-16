@@ -10,36 +10,44 @@ const Home = () => {
   }
 
   return (
-    <div className="bg-gray-900 text-white  py-20">
+    <div className="bg-gray-900 text-white  py-20  min-h-screen ">
       {/* Flex row for content */}
       <div className="flex flex-col md:flex-row items-start justify-between gap-x-16">
         
         {/* Left content */}
-        <div className='flex flex-col gap-4 max-w-xl px-6 sm:px-10 mb-30'>
-          <p className="text-4xl font-medium text-blue-300">Welcome to</p>
-          <h1 className="text-6xl font-extrabold text-blue-500">DevForge</h1>
-          <p className="text-lg text-gray-300">Store, Edit and Compile</p>
-
-          <div className='flex gap-2 mt-4'>
-            <input 
-              type="email" 
-              placeholder='Email address' 
-              className="px-4 py-2 rounded bg-gray-800 text-white focus:outline-none"
-            />
-            <button onClick={handleRedirect} className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">
-              Sign Up/Login
-            </button>
+        <div className='flex flex-col gap-1.5 max-w-xl md:max-w-3xl px-4 sm:px-10 mb-10 w-full'>
+          <div className="text-center md:text-left">
+            <p className="m-0 text-[clamp(2.5rem,8.5vw,4rem)] font-medium text-blue-300 leading-tight">Welcome To</p>
+            <h1 className="m-0 text-[clamp(3rem,12vw,5rem)] font-extrabold text-blue-500 leading-[0.7]">DevForge</h1>
+            <p className="mt-9 text-[clamp(0.85rem,2.5vw,1rem)] text-gray-300  ">Store, compile, and edit code snippets with other developers on DevForge</p>
           </div>
-        </div>
+          
 
-        {/* Right logo */}
-        <div className='hidden md:block px-6 sm:px-10'>
+        <div className='flex flex-col sm:flex-row gap-3 mt-4 w-full'>
+          <input 
+            type="email" 
+            placeholder='Email address' 
+            className="px-4 py-2 rounded bg-gray-800 text-white focus:outline-none w-full sm:w-auto flex-1"
+          />
+          <button 
+            onClick={handleRedirect} 
+            className="w-full sm:w-auto px-4 sm:px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm sm:text-base"
+          >
+            Sign Up
+          </button>
+        </div>
+      </div>
+
+
+       {/* Right logo */}
+        <div className='hidden sm:block px-6 sm:px-10'>
           <img 
             src="/logo.png" 
             alt="DevForge Logo"
-            className="w-[300px] md:w-[350px] lg:w-[400px]"
+            className="w-full max-w-[300px] sm:max-w-[350px] md:max-w-[400px] mx-auto"
           />
         </div>
+
 
       </div>
 
