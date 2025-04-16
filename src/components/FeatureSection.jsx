@@ -1,5 +1,6 @@
 import React from 'react'
 
+// Video And Text  Side by Side on Homepage 
 const FeatureSection = ({title,description,videoSrc,reverse,bgColor}) => {
   return (
     <section className={`w-full py-20 ${bgColor}`}>
