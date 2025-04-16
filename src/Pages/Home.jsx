@@ -36,7 +36,7 @@ const Home = () => {
       />
       <button 
         onClick={handleRedirect} 
-        className="w-full sm:w-auto px-4 sm:px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm sm:text-base"
+        className="w-full sm:w-auto px-4 sm:px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm sm:text-base whitespace-nowrap"
       >
         Sign Up
       </button>

@@ -43,8 +43,11 @@ const Navbar = () => {
           Login / Sign Up
         </Link>
         <Link to="/compiler" className="hover:text-yellow-300" onClick={closeMenu}>
-          Create
+          Code
         </Link>
+
+        <Link to="/snippets" className='hover:text-yellow-300' onClick={closeMenu}>Snippets</Link>
+
       </div>
     </nav>
   );
