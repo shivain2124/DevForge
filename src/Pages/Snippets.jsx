@@ -7,6 +7,7 @@ const SnippetPage = () => {
       <h1 className="font-extrabold text-4xl sm:text-5xl md:text-6xl text-white mb-10 text-center">
         All Snippets
       </h1>
+      
       <DragDropWrapper />
     </div>
   );

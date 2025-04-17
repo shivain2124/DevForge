@@ -52,7 +52,7 @@ const DragDropWrapper = () => {
     <div className="min-h-screen w-full p-4 bg-gray-800">
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext items={snippets.map((s) => s.id)} strategy={rectSortingStrategy}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 h-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 h-full">
             {snippets.map((snippet) => (
               <SortableSnippetCard key={snippet.id} snippet={snippet} />
             ))}
