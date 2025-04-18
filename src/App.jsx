@@ -7,6 +7,7 @@ import Snippets from './Pages/Snippets'
 import Navbar from './components/Navbar'
 import AuthChoice from './Pages/AuthChoice'
 import Compiler from './Pages/Compiler'
+import ForgotPasswordPage from './Pages/ForgotPasswordPage'
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/snippets" element={<Snippets />} />
       <Route path="/compiler" element={<Compiler/>} />
+      <Route path='/forgot-password' element={<ForgotPasswordPage/>}/>
     </Routes>
 
     {/* <div style={{ height: '2000px' }} className="bg-gray-800">

@@ -65,7 +65,6 @@ const LoginPage = () => {
         >
           Log In
         </button> */}
-
         <LoginButton/>
       </form>
 
