@@ -2,7 +2,7 @@ import {Routes,Route} from 'react-router-dom'
 import React from 'react'
 import Home from './Pages/Home'
 import Login from './Pages/Login'
-import SignUp from './Pages/SignUp'
+import SignupPage from './Pages/SignUpPage'
 import Snippets from './Pages/Snippets'
 import Navbar from './components/Navbar'
 import AuthChoice from './Pages/AuthChoice'
@@ -18,10 +18,10 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/auth" element={<AuthChoice/>} />
       <Route path="/login" element={<Login/>} />
-      <Route path="/signup" element={<SignUp />} />
       <Route path="/snippets" element={<Snippets />} />
       <Route path="/compiler" element={<Compiler/>} />
-      <Route path='/forgot-password' element={<ForgotPasswordPage/>}/>
+      <Route path='/forgot-password' element={<ForgotPasswordPage />}/>
+      <Route path="/signup" element={<SignupPage/>} />
     </Routes>
 
     {/* <div style={{ height: '2000px' }} className="bg-gray-800">

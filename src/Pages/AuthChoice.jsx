@@ -1,6 +1,7 @@
  import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginButton from './LoginButton';
+import {Link} from 'react-router-dom';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -53,9 +54,12 @@ const LoginPage = () => {
 
         {/* Forgot Password Link */}
         <div className="flex justify-end">
-          <a href="#" className="text-xs sm:text-sm text-blue-400 hover:underline">
+          <Link
+            to="/forgot-password"
+            className="text-xs sm:text-sm text-blue-400 hover:underline focus:outline-none"
+          >
             Forgot Password?
-          </a>
+          </Link>
         </div>
 
         {/* Submit Button */}
@@ -65,7 +69,7 @@ const LoginPage = () => {
         >
           Log In
         </button> */}
-        <LoginButton/>
+        <LoginButton label='Login'/>
       </form>
 
       {/* Social Login Buttons */}
