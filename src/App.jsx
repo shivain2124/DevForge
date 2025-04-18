@@ -5,7 +5,7 @@ import Login from './Pages/Login'
 import SignupPage from './Pages/SignUpPage'
 import Snippets from './Pages/Snippets'
 import Navbar from './components/Navbar'
-import AuthChoice from './Pages/AuthChoice'
+import LoginPage from './Pages/LoginPage'
 import Compiler from './Pages/Compiler'
 import ForgotPasswordPage from './Pages/ForgotPasswordPage'
 
@@ -16,7 +16,7 @@ function App() {
     <Navbar/>
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/auth" element={<AuthChoice/>} />
+      <Route path="/auth" element={<LoginPage/>} />
       <Route path="/login" element={<Login/>} />
       <Route path="/snippets" element={<Snippets />} />
       <Route path="/compiler" element={<Compiler/>} />

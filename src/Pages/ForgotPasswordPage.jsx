@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import LoginButton from './LoginButton';
 
 const ForgotPasswordPage = () => {
   const navigate = useNavigate();
@@ -63,12 +64,14 @@ const ForgotPasswordPage = () => {
         {success && <p className="text-green-400 text-xs sm:text-sm">{success}</p>}
 
         {/* Submit Button */}
-        <button
+        {/* <button
           type="submit"
           className="w-full px-4 py-2 sm:px-6 sm:py-3 text-xs sm:text-lg font-medium text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition-all duration-300"
         >
           Reset Password
-        </button>
+        </button> */}
+        <LoginButton label="Reset Password" />
+
       </form>
 
       {/* Back to Login Link */}
