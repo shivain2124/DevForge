@@ -1,5 +1,6 @@
  import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import LoginButton from './LoginButton';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -58,12 +59,14 @@ const LoginPage = () => {
         </div>
 
         {/* Submit Button */}
-        <button
+        {/* <button
           type="submit"
           className="w-full px-4 py-2 sm:px-6 sm:py-3 text-xs sm:text-lg font-medium text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition-all duration-300"
         >
           Log In
-        </button>
+        </button> */}
+
+        <LoginButton/>
       </form>
 
       {/* Social Login Buttons */}
