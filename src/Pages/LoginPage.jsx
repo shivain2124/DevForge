@@ -6,9 +6,9 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen text-gray-100 bg-gradient-to-br from-gray-900 to-gray-700">
+    <div className="flex flex-col items-center justify-center min-h-screen text-gray-100 bg-gradient-to-br from-gray-900 to-gray-700" >
       {/* Header */}
-      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-6 text-center">
+      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-wide text-white mb-6 text-center">
         Welcome Back to DevForge
       </h2>
       <p className="mb-8 text-sm sm:text-lg text-gray-300 text-center px-4">
@@ -84,7 +84,7 @@ const LoginPage = () => {
           {/* Google Button */}
           <button
             type="button"
-            className="relative flex items-center justify-center w-full sm:w-auto px-6 py-3 text-sm font-medium text-white bg-black border border-gray-300 rounded-full overflow-hidden transition-all duration-200 group hover:border-black"
+            className="relative flex items-center justify-center w-full sm:w-auto px-6 py-3 text-sm font-medium text-white border-2 border-gray-300 rounded-full overflow-hidden transition-all duration-200 group hover:border-black"
           >
             {/* Hover background effect */}
             <span className="absolute inset-0 scale-0 group-hover:scale-100 transition-transform duration-200 ease-out bg-white z-0 rounded-full"></span>
@@ -151,7 +151,7 @@ const LoginPage = () => {
           {/* GitHub Button */}
           <button
             type="button"
-            className="w-full sm:w-auto relative flex items-center justify-center px-6 py-3 text-sm font-medium text-white bg-black border border-gray-300 rounded-full overflow-hidden transition-all duration-200 group hover:border-black"
+            className="w-full sm:w-auto relative flex items-center justify-center px-6 py-3 text-sm font-medium text-white border-2 border-gray-300 rounded-full overflow-hidden transition-all duration-200 group hover:border-black"
           >
             {/* Github SVG */}
             <svg

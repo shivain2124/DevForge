@@ -39,9 +39,7 @@ const Navbar = () => {
         <Link to="/" className="hover:text-yellow-300" onClick={closeMenu}>
           Home
         </Link>
-        <Link to="/auth" className="hover:text-yellow-300" onClick={closeMenu}>
-          Login / Sign Up
-        </Link>
+      
         <Link to="/compiler" className="hover:text-yellow-300" onClick={closeMenu}>
           Code
         </Link>

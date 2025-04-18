@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-const LoginButton = ({ label=""}) => {
+const LoginButton = ({ label="" , onClick}) => {
   return (
     <StyledWrapper>
-      <button type='submit' className="w-full px-4 py-2 sm:px-6 sm:py-3 text-xs sm:text-lg font-medium text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition-all duration-300 ">
+      <button type='submit' onClick={onClick} className="w-full px-4 py-2 sm:px-6 sm:py-3 text-xs sm:text-lg font-medium text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition-all duration-300 ">
         
         <svg height={24} width={24} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M0 0h24v24H0z" fill="none" />
@@ -30,12 +30,21 @@ button {
     font-size: 17px;
     padding: 0.8em 1.3em;
     color: white;
-    background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    // background: linear-gradient(to right, #3B82F6, #6366F1);
+    // background: linear-gradient(to right, #2563EB, #6366F1, #8B5CF6);
+    // background: linear-gradient(to right, #1E3A8A, #3B82F6, #9333EA);
+    // background: linear-gradient(to right, #3B82F6, #60A5FA, #A78BFA);
+    // background: linear-gradient(to right, #0EA5E9, #6366F1, #7C3AED);
+
+    //bg
+    background: linear-gradient(to top right, #0f172a, #3b82f6, #8b5cf6); //twilight shift
+
+//  from-[#3B82F6] to-[#6366F1]
     border: none;
     letter-spacing: 0.05em;
     border-radius: 16px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;b
   }
 
   button svg {

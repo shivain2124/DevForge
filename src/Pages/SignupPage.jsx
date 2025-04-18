@@ -54,7 +54,8 @@ const SignupPage = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen text-gray-100 bg-gradient-to-br from-gray-900 to-gray-700">
       {/* Header */}
-      <h2 className="text-2xl sm:text-3xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-6 text-center">
+      <h2 className="text-2xl sm:text-3xl font-bold tracking-wide text-white mb-6 text-center"> 
+      {/* text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 */}
         Create Your Account
       </h2>
       <p className="mb-8 text-sm sm:text-lg text-gray-300 text-center px-4">
