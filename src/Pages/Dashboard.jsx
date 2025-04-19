@@ -16,7 +16,7 @@ const Dashboard = () => {
   return (
     <div className="bg-white text-gray-900 min-h-screen py-8 px-4 sm:px-10">
       {/* Header */}
-      <h1 className="text-3xl font-bold text-blue-600 mb-6">Your Dashboard</h1>
+      <h1 className="text-3xl font-bold text-blue-600 mb-6">Your Overview</h1>
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">

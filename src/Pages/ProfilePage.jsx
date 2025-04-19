@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import SettingsPage from './SettingsPage';
+import Dashboard from './Dashboard';
 
 
 const ProfilePage = () => {
@@ -88,6 +90,7 @@ const ProfilePage = () => {
             </button>
             <button
                onClick={() => setActiveTab('settings')}
+
               className={`px-4 py-2 rounded ${
                 activeTab === 'settings' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               } transition-all duration-300`}
@@ -100,10 +103,7 @@ const ProfilePage = () => {
           <div>
             {activeTab === 'overview' && (
               <div>
-                <h2 className="text-xl font-semibold text-gray-800 mb-4">Overview</h2>
-                <p className="text-gray-700">
-                  This is the overview section. It provides a summary of your activity and contributions.
-                </p>
+                <Dashboard/>
               </div>
             )}
             {activeTab === 'posts' && (
@@ -126,8 +126,7 @@ const ProfilePage = () => {
             )}
             {activeTab === 'settings' && (
               <div>
-                <h2 className="text-xl font-semibold text-gray-800 mb-4">Settings</h2>
-                <p className="text-gray-700">This section allows you to update your profile and preferences.</p>
+                <SettingsPage/>
               </div>
             )}
           </div>
