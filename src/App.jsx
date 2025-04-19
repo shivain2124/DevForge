@@ -7,7 +7,8 @@ import Snippets from './Pages/Snippets'
 import Navbar from './components/Navbar'
 import LoginPage from './Pages/LoginPage'
 import Compiler from './Pages/Compiler'
-import ForgotPasswordPage from './Pages/ForgotPasswordPage'
+import ForgotPasswordPage from './Pages/ForgotPasswordPage' 
+import Dashboard from './Pages/Dashboard'
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
       <Route path="/compiler" element={<Compiler/>} />
       <Route path='/forgot-password' element={<ForgotPasswordPage />}/>
       <Route path="/signup" element={<SignupPage/>} />
+      <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
 
     {/* <div style={{ height: '2000px' }} className="bg-gray-800">
