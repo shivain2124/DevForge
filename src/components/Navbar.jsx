@@ -4,6 +4,7 @@ import './Navbar.css';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [profileDropdown, setProfileDropdown] = useState(false);
   const closeMenu = () => setIsOpen(false);
 
   return (
@@ -36,12 +37,13 @@ const Navbar = () => {
           <div className="flex items-center gap-4 z-20">
 
             {/* Hamburger */}
-            <div className="md:hidden">
+            <div className="md:hidden relative flex items-center">
               <input
                 type="checkbox"
                 id="checkbox"
                 checked={isOpen}
                 onChange={() => setIsOpen(!isOpen)}
+                className="absolute opacity-0 w-0 h-0"
               />
               <label htmlFor="checkbox" className="toggle">
                 <div className="bars" id="bar1"></div>
@@ -128,6 +130,52 @@ const Navbar = () => {
                 </li>
 
               </ul>
+            </div>
+
+            {/* Profile Section */}
+            <div className="relative">
+              <button 
+                onClick={() => setProfileDropdown(!profileDropdown)}
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                aria-expanded={profileDropdown}
+              >
+                SS
+              </button>
+              
+              {/* Profile Dropdown */}
+              {profileDropdown && (
+                <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5">
+                  <div className="py-1" role="menu" aria-orientation="vertical">
+                    <div className="px-4 py-3 border-b border-gray-700">
+                      <p className="text-sm text-white">Signed in as</p>
+                      <p className="text-sm font-medium truncate text-blue-300">user@example.com</p>
+                    </div>
+                    <Link 
+                      to="/profile" 
+                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
+                      onClick={() => setProfileDropdown(false)}
+                    >
+                      Your Profile
+                    </Link>
+                    <Link 
+                      to="/settings" 
+                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
+                      onClick={() => setProfileDropdown(false)}
+                    >
+                      Settings
+                    </Link>
+                    <button 
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
+                      onClick={() => {
+                        // Handle logout logic here
+                        setProfileDropdown(false);
+                      }}
+                    >
+                      Sign out
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

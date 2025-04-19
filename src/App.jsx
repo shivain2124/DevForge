@@ -9,6 +9,8 @@ import LoginPage from './Pages/LoginPage'
 import Compiler from './Pages/Compiler'
 import ForgotPasswordPage from './Pages/ForgotPasswordPage' 
 import Dashboard from './Pages/Dashboard'
+import ProfilePage from './Pages/ProfilePage'
+import SettingsPage from './Pages/SettingsPage'
 
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
       <Route path='/forgot-password' element={<ForgotPasswordPage />}/>
       <Route path="/signup" element={<SignupPage/>} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="profile" element={<ProfilePage />} />
+      <Route path="settings" element={<SettingsPage/>} />
     </Routes>
 
     {/* <div style={{ height: '2000px' }} className="bg-gray-800">
