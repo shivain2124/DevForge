@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import SettingsPage from './SettingsPage';
 import Dashboard from './Dashboard';
+import PostsPage from './PostsPage';
 
 
 const ProfilePage = () => {
@@ -108,8 +109,7 @@ const ProfilePage = () => {
             )}
             {activeTab === 'posts' && (
               <div>
-                <h2 className="text-xl font-semibold text-gray-800 mb-4">Your Posts</h2>
-                <p className="text-gray-700">This section will display all posts created by you.</p>
+               <PostsPage/>
               </div>
             )}
             {activeTab === 'likes' && (
