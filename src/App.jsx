@@ -11,6 +11,7 @@ import ForgotPasswordPage from './Pages/ForgotPasswordPage'
 import Dashboard from './Pages/Dashboard'
 import ProfilePage from './Pages/ProfilePage'
 import SettingsPage from './Pages/SettingsPage'
+import DiscussionPage from './Pages/DiscussionPage'
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="profile" element={<ProfilePage />} />
       <Route path="settings" element={<SettingsPage/>} />
+      <Route path='discussion:postId' element={<DiscussionPage/>} />
     </Routes>
 
     {/* <div style={{ height: '2000px' }} className="bg-gray-800">
