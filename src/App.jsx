@@ -12,6 +12,7 @@ import Dashboard from './Pages/Dashboard'
 import ProfilePage from './Pages/ProfilePage'
 import SettingsPage from './Pages/SettingsPage'
 import DiscussionPage from './Pages/DiscussionPage'
+import NotFoundPage from './Pages/NotFoundPage'
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
       <Route path="profile" element={<ProfilePage />} />
       <Route path="settings" element={<SettingsPage/>} />
       <Route path='discussion/:postId' element={<DiscussionPage/>} />
+      <Route path="/*" element={<NotFoundPage/>}/>
     </Routes>
 
     {/* <div style={{ height: '2000px' }} className="bg-gray-800">
