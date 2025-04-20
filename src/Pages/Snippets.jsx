@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { FiHeart, FiCode, FiCopy, FiEdit, FiTrash2, FiSearch, FiFilter, FiTag, FiX } from 'react-icons/fi';
+import { FiHeart, FiCode, FiCopy, FiEdit, FiTrash2, FiSearch, FiFilter, FiTag, FiX , FiMessageCircle} from 'react-icons/fi';
 import TagsInput from '../components/TagsInput'; // Adjust the import path as needed
+import {useParams, Link} from 'react-router-dom'
 
 // Language color mapping with vibrant colors
 const languageColors = {
@@ -172,6 +173,11 @@ const SnippetCard = ({ snippet, onLike, onCopy, onEdit, onDelete, onTagClick }) 
           >
             <FiTrash2 size={16} />
           </button>
+          <Link to={`/discussion/${snippet.id}`} className="p-1.5 text-shadow-gray-600 hover:text-purple-500 hover:bg-purle-50 rounded-full transition-all"
+          title="View Discussion"
+          >
+            <FiMessageCircle size={16}/>
+          </Link>
         </div>
       </div>
     </div>

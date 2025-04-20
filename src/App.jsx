@@ -29,7 +29,7 @@ function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="profile" element={<ProfilePage />} />
       <Route path="settings" element={<SettingsPage/>} />
-      <Route path='discussion:postId' element={<DiscussionPage/>} />
+      <Route path='discussion/:postId' element={<DiscussionPage/>} />
     </Routes>
 
     {/* <div style={{ height: '2000px' }} className="bg-gray-800">

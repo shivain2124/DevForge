@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { FiMessageCircle, FiSend, FiHeart, FiEye } from 'react-icons/fi';
+import { FaRegComments } from 'react-icons/fa'; 
+
 
 // Sample data (mock backend response)
 const initialPosts = [
@@ -60,7 +62,7 @@ const DiscussionPage = () => {
     } else {
       console.error('Post not found');
     }
-  }, [postId]);
+  }, [defaultId]);
 
   // Handle submitting a new comment
   const handleCommentSubmit = () => {
@@ -86,7 +88,14 @@ const DiscussionPage = () => {
   };
 
   if (!post) {
-    return <div className="text-xl text-red-500 text-center py-16">Loading...</div>;
+    // return <div className="text-xl text-red-500 text-center py-16">No posts Available...</div>;
+    return(
+      <div className='flex flex-col items-center justify-center py-20 text-center bg-white'>
+        <FaRegComments size={50} className="text-gray-400 mb-4" />
+      <h2 className="text-3xl text-gray-600 font-semibold">No Posts Yet!</h2>
+      <p className='text-md mt-2'>Be the First One to <span className='text-gray-500 font-bold'>POST</span> a comment! </p>
+      </div>
+    );
   }
 
   return (
