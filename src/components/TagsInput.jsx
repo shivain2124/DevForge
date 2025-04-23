@@ -1,8 +1,25 @@
 import React, { useState, useCallback } from 'react';
 import { FiPlus } from 'react-icons/fi';
 
-const TagsInput = ({ tags, onAddTag, onRemoveTag, suggestedTags }) => {
+const TagsInput = ({ tags, onAddTag, onRemoveTag, suggestedTags, theme }) => {
   const [tagInput, setTagInput] = useState('');
+
+  // Define theme-based classes
+  const uiClasses = theme === 'dark' 
+    ? {
+        input: "w-full sm:w-[304px] p-2 bg-gray-800 border border-gray-700 rounded-l text-white",
+        button: "px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-r text-white flex items-center",
+        tag: "flex items-center bg-blue-600 text-white px-3 py-1 rounded-full text-sm",
+        suggested: "px-2 py-1 text-xs bg-gray-700 hover:bg-gray-600 rounded-full text-gray-300",
+        text: "text-gray-400"
+      }
+    : {
+        input: "w-full sm:w-[304px] p-2 bg-gray-50 border border-gray-300 rounded-l text-gray-800 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500",
+        button: "px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-r text-white flex items-center",
+        tag: "flex items-center bg-blue-600 text-white px-3 py-1 rounded-full text-sm",
+        suggested: "px-2 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700",
+        text: "text-gray-500"
+      };
 
   const handleAddTag = useCallback(() => {
     if (tagInput.trim() && !tags.includes(tagInput.trim())) {
@@ -25,12 +42,13 @@ const TagsInput = ({ tags, onAddTag, onRemoveTag, suggestedTags }) => {
   }, [tags, onAddTag]);
 
   return (
-    <div>
+    <div className="mb-4">
+      <h2 className={`mb-2 font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-700'}`}>Tags</h2>
       <div className="flex flex-wrap gap-2 mb-2">
         {tags.map((tag, index) => (
           <div 
             key={index} 
-            className="flex items-center bg-blue-600 text-white px-3 py-1 rounded-full text-sm"
+            className={uiClasses.tag}
           >
             <span>{tag}</span>
             <button 
@@ -49,26 +67,26 @@ const TagsInput = ({ tags, onAddTag, onRemoveTag, suggestedTags }) => {
           onChange={(e) => setTagInput(e.target.value)}
           onKeyDown={handleTagInputKeyDown}
           placeholder="Add tags (press Enter or comma to add)"
-          className="w-full sm:w-[308px] p-2 bg-white border border-gray-300 rounded-l text-gray-700"
+          className={uiClasses.input}
         />
-        {/* <button
+        <button
           onClick={handleAddTag}
-          className="ml-5 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white flex items-center"
+          className={uiClasses.button}
         >
           <FiPlus className="mr-1" /> Add
-        </button> */}
+        </button>
       </div>
       
       {/* Suggested tags */}
       {suggestedTags && suggestedTags.length > 0 && (
         <div className="mt-3">
-          <p className="text-sm text-gray-500 mb-1">Suggested tags:</p>
+          <p className={`text-sm mb-1 ${uiClasses.text}`}>Suggested tags:</p>
           <div className="flex flex-wrap gap-2">
             {suggestedTags.slice(0, 10).map((tag, index) => (
               <button
                 key={index}
                 onClick={() => handleSuggestedTagClick(tag)}
-                className="px-2 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700 transition-colors"
+                className={uiClasses.suggested}
               >
                 #{tag}
               </button>
