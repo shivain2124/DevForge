@@ -7,8 +7,8 @@ const Navbar = () => {
   const [profileDropdown, setProfileDropdown] = useState(false);
 
   return (
-    <div className="bg-white">
-      <header className="absolute inset-x-0 top-0 z-50">
+    <div className="bg-white pt-2">
+      <header className="sticky top-0 z-50 shadow-sm">
         <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
           {/* Logo */}
           <div className="flex lg:flex-1">
