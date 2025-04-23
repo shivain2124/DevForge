@@ -32,22 +32,21 @@ const Home = () => {
         </div>
     
 
-
-    {/* Hero Section - With Interactive Feature Showcase */}
-<div className="px-6 pt-14 lg:px-8">
+    {/* Hero Section - Multi-Feature Showcase */}
+    <div className="px-6 pt-14 lg:px-8">
   <div className="max-w-6xl mx-auto pt-10 md:pt-20">
-    <div className="flex flex-col items-center text-center">
+    <div className="text-center mb-16">
       <h1 className="text-[clamp(3rem,10vw,5rem)] font-extrabold text-gray-900 leading-tight">
         <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
           DevForge
         </span>
       </h1>
-      <p className="mt-6 text-xl md:text-2xl text-gray-600 max-w-3xl">
-        Create, compile, and collaborate on code snippets with developers worldwide
+      <p className="mt-6 text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
+        The complete platform for code snippet management and collaboration
       </p>
       
       {/* Input and Button */}
-      <div className="flex flex-col sm:flex-row gap-3 mt-10 w-full max-w-md">
+      <div className="flex flex-col sm:flex-row gap-3 mt-10 w-full max-w-md mx-auto">
         <input
           type="email"
           placeholder="Email address"
@@ -60,73 +59,131 @@ const Home = () => {
           Get Started
         </button>
       </div>
+    </div>
+    
+    {/* Feature Tabs */}
+    <div className="bg-white rounded-xl shadow-xl overflow-hidden">
+      <div className="border-b border-gray-200">
+        <nav className="flex -mb-px">
+          <button className="w-1/3 py-4 px-1 text-center border-b-2 border-indigo-500 font-medium text-indigo-600">
+            Create & Store
+          </button>
+          <button className="w-1/3 py-4 px-1 text-center border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
+            Compile & Run
+          </button>
+          <button className="w-1/3 py-4 px-1 text-center border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
+            Collaborate
+          </button>
+        </nav>
+      </div>
       
-      {/* Interactive Feature Showcase */}
-      <div className="mt-16 w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Code Snippet Creation */}
-        <div className="bg-gray-900 rounded-lg shadow-xl overflow-hidden col-span-1 lg:col-span-2 transform transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl">
-          <div className="flex items-center px-4 py-2 bg-gray-800">
-            <div className="flex space-x-2">
-              <div className="w-3 h-3 rounded-full bg-red-500"></div>
-              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-              <div className="w-3 h-3 rounded-full bg-green-500"></div>
-            </div>
-            <div className="ml-4 text-gray-400 text-xs">snippet.js</div>
-          </div>
-          <div className="p-4 font-mono text-sm text-left">
-            <pre className="text-blue-400">function <span className="text-green-400">createSnippet</span><span className="text-white">(</span><span className="text-yellow-400">code</span><span className="text-white">) {'{'}</span></pre>
-            <pre className="text-white ml-4">const snippet = {'{'}</pre>
-            <pre className="text-white ml-8">id: generateId(),</pre>
-            <pre className="text-white ml-8">code,</pre>
-            <pre className="text-white ml-8">language: detectLanguage(code),</pre>
-            <pre className="text-white ml-8">createdAt: new Date()</pre>
-            <pre className="text-white ml-4">{'}'};</pre>
-            <pre className="text-white ml-4">return saveToDatabase(snippet);</pre>
-            <pre className="text-white">{'}'}</pre>
-          </div>
-        </div>
-
-        {/* Collaboration Features */}
-        <div className="flex flex-col gap-4">
-          {/* Real-time Collaboration */}
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 transform transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
-            <div className="p-4 border-b border-gray-200">
-              <h3 className="font-bold text-lg text-indigo-600">Real-time Collaboration</h3>
-            </div>
-            <div className="p-4 bg-gray-50">
-              <div className="flex items-start gap-2 mb-3">
-                <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-bold">JD</div>
-                <div className="flex-1 p-2 bg-blue-100 rounded-lg text-sm text-gray-800">
-                  We should optimize this function for large datasets.
-                </div>
-              </div>
-              <div className="flex items-start gap-2">
-                <div className="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-white text-xs font-bold">SS</div>
-                <div className="flex-1 p-2 bg-purple-100 rounded-lg text-sm text-gray-800">
-                  Good idea! Let's add caching to improve performance.
-                </div>
-              </div>
-            </div>
+      {/* Feature Content - Create & Store */}
+      <div className="p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Create & Store Code Snippets</h2>
+            <p className="text-gray-600 mb-6">
+              Save your most useful code snippets in one secure place. Organize with tags, search instantly, and access from anywhere.
+            </p>
+            <ul className="space-y-3">
+              <li className="flex items-start">
+                <svg className="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-gray-700">Support for 8+ programming languages</span>
+              </li>
+              <li className="flex items-start">
+                <svg className="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-gray-700">Powerful search and filtering</span>
+              </li>
+              <li className="flex items-start">
+                <svg className="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-gray-700">Custom tags and organization</span>
+              </li>
+            </ul>
           </div>
           
-          {/* Compilation Results */}
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 transform transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
-            <div className="p-4 border-b border-gray-200">
-              <h3 className="font-bold text-lg text-green-600">Instant Compilation</h3>
-            </div>
-            <div className="p-4 bg-gray-50 font-mono text-sm">
-              <div className="text-green-600">
-                {'>'} Running snippet.js<br />
-                {'>'} Snippet created successfully<br />
-                {'>'} ID: 8f7d3c2e-1a5b-4c9d-8e7f-6b5a4c3d2e1f
+          <div className="bg-gray-900 rounded-lg overflow-hidden">
+            <div className="flex items-center px-4 py-2 bg-gray-800">
+              <div className="flex space-x-2">
+                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
               </div>
+              <div className="ml-4 text-gray-400 text-xs">quicksort.py</div>
+            </div>
+            <div className="p-4 font-mono text-sm text-left">
+              <pre className="text-green-400">def <span className="text-blue-400">quicksort</span><span className="text-white">(arr):</span></pre>
+              <pre className="text-white ml-4">if len(arr) {'<='} 1:</pre>
+              <pre className="text-white ml-8">return arr</pre>
+              <pre className="text-white ml-4">pivot = arr[len(arr) // 2]</pre>
+              <pre className="text-white ml-4">left = [x for x in arr if x {'<'} pivot]</pre>
+              <pre className="text-white ml-4">middle = [x for x in arr if x == pivot]</pre>
+              <pre className="text-white ml-4">right = [x for x in arr if x {'>'} pivot]</pre>
+              <pre className="text-white ml-4">return quicksort(left) + middle + quicksort(right)</pre>
             </div>
           </div>
         </div>
       </div>
     </div>
+    
+    {/* Feature Cards */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+      {/* Collaboration Card */}
+      <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 transform transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
+        <div className="h-2 bg-purple-600"></div>
+        <div className="p-6">
+          <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mb-4">
+            <svg className="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <h3 className="text-xl font-bold text-gray-900 mb-2">Real-time Collaboration</h3>
+          <p className="text-gray-600">
+            Work together on code snippets with team members in real-time. See changes as they happen and discuss improvements.
+          </p>
+        </div>
+      </div>
+      
+      {/* Compilation Card */}
+      <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 transform transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
+        <div className="h-2 bg-green-600"></div>
+        <div className="p-6">
+          <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mb-4">
+            <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <h3 className="text-xl font-bold text-gray-900 mb-2">Instant Compilation</h3>
+          <p className="text-gray-600">
+            Compile and run your code directly in the browser. Test your snippets instantly without switching tools.
+          </p>
+        </div>
+      </div>
+      
+      {/* Sharing Card */}
+      <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 transform transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
+        <div className="h-2 bg-blue-600"></div>
+        <div className="p-6">
+          <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+            <svg className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+            </svg>
+          </div>
+          <h3 className="text-xl font-bold text-gray-900 mb-2">Easy Sharing</h3>
+          <p className="text-gray-600">
+            Share your snippets with anyone via secure links. Control access and permissions for each snippet.
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
 
 
      {/* Bottom background blur effect - FIXED */}
@@ -143,7 +200,8 @@ const Home = () => {
   />
 </div>
 
-      {/* Feature Sections */}
+
+      {/* Feature Section
       <div className="mt-20">
         <FeatureSection
           title="Store"
@@ -174,7 +232,7 @@ const Home = () => {
           textColor="text-gray-800"
           accentColor="text-indigo-600"
         />
-      </div>
+      </div> */}
 
       {/* Footer */}
       <footer className="mt-10 text-center text-sm text-gray-600 pb-8">
