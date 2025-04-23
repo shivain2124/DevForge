@@ -6,12 +6,12 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen text-gray-100 bg-gradient-to-br from-gray-900 to-gray-700" >
+    <div className="flex flex-col items-center justify-center min-h-screen text-gray-800  bg-white" >
       {/* Header */}
-      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-wide text-white mb-6 text-center">
+      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-500 mb-6 text-center">
         Welcome Back to DevForge
       </h2>
-      <p className="mb-8 text-sm sm:text-lg text-gray-300 text-center px-4">
+      <p className="mb-8 text-sm sm:text-lg text-gray-600 text-center px-4">
         Please log in to continue:
       </p>
 
@@ -21,7 +21,7 @@ const LoginPage = () => {
         <div>
           <label
             htmlFor="email"
-            className="block text-xs sm:text-sm font-medium text-gray-300 mb-1"
+            className="block text-xs sm:text-sm font-medium text-gray-700 mb-1"
           >
             Email
           </label>
@@ -29,7 +29,7 @@ const LoginPage = () => {
             type="email"
             id="email"
             placeholder="Enter your email"
-            className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-600 rounded-lg bg-gray-800 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-xs sm:text-base"
+            className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-xs sm:text-base"
           />
         </div>
 
@@ -37,7 +37,7 @@ const LoginPage = () => {
         <div>
           <label
             htmlFor="password"
-            className="block text-xs sm:text-sm font-medium text-gray-300 mb-1"
+            className="block text-xs sm:text-sm font-medium text-gray-700 mb-1"
           >
             Password
           </label>
@@ -46,7 +46,7 @@ const LoginPage = () => {
               type="password"
               id="password"
               placeholder="Enter your password"
-              className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-600 rounded-lg bg-gray-800 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-xs sm:text-base"
+              className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-xs sm:text-base"
             />
             <button
               type="button"
@@ -61,7 +61,7 @@ const LoginPage = () => {
         <div className="flex justify-end">
           <Link
             to="/forgot-password"
-            className="text-xs sm:text-sm text-blue-400 hover:underline focus:outline-none"
+            className="text-xs sm:text-sm text-blue-600 hover:underline focus:outline-none"
           >
             Forgot Password?
           </Link>
@@ -84,7 +84,7 @@ const LoginPage = () => {
           {/* Google Button */}
           <button
             type="button"
-            className="relative flex items-center justify-center w-full sm:w-auto px-6 py-3 text-sm font-medium text-white border-2 border-gray-300 rounded-full overflow-hidden transition-all duration-200 group hover:border-black"
+            className="relative flex items-center justify-center w-full sm:w-auto px-6 py-3 text-sm font-medium text-gray-700 border-2 border-gray-300 rounded-full overflow-hidden transition-all duration-200 group hover:border-blue-600 bg-white"
           >
             {/* Hover background effect */}
             <span className="absolute inset-0 scale-0 group-hover:scale-100 transition-transform duration-200 ease-out bg-white z-0 rounded-full"></span>
@@ -151,7 +151,7 @@ const LoginPage = () => {
           {/* GitHub Button */}
           <button
             type="button"
-            className="w-full sm:w-auto relative flex items-center justify-center px-6 py-3 text-sm font-medium text-white border-2 border-gray-300 rounded-full overflow-hidden transition-all duration-200 group hover:border-black"
+            className="w-full sm:w-auto relative flex items-center justify-center px-6 py-3 text-sm font-medium text-gray-700 border-2 border-gray-300 rounded-full overflow-hidden transition-all duration-200 group hover:border-blue-600 bg-white"
           >
             {/* Github SVG */}
             <svg
@@ -173,12 +173,12 @@ const LoginPage = () => {
       </div>
 
       {/* Footer */}
-      <div className="mt-6 text-xs sm:text-sm text-gray-400 text-center px-4 sm:px-0">
+      <div className="mt-6 text-xs sm:text-sm text-gray-500 text-center px-4 sm:px-0">
         <p>
           Don't have an account?{" "}
           <button
             onClick={() => navigate("/signup")}
-            className="text-blue-400 hover:underline focus:outline-none"
+            className="text-blue-600 hover:underline focus:outline-none"
           >
             Sign Up
           </button>

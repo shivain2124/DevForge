@@ -33,11 +33,12 @@ button {
     // background: linear-gradient(to right, #3B82F6, #6366F1);
     // background: linear-gradient(to right, #2563EB, #6366F1, #8B5CF6);
     // background: linear-gradient(to right, #1E3A8A, #3B82F6, #9333EA);
-    // background: linear-gradient(to right, #3B82F6, #60A5FA, #A78BFA);
-    // background: linear-gradient(to right, #0EA5E9, #6366F1, #7C3AED);
+
+    background: linear-gradient(to right, #0EA5E9, #6366F1, #7C3AED);
+    // background: linear-gradient(to right, #3B82F6, #6366F1);
 
     //bg
-    background: linear-gradient(to top right, #0f172a, #3b82f6, #8b5cf6); //twilight shift
+    // background: linear-gradient(to top right, #0f172a, #3b82f6, #8b5cf6); //twilight shift
 
 //  from-[#3B82F6] to-[#6366F1]
     border: none;
