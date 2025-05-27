@@ -1,10 +1,30 @@
+// import { defineConfig } from 'vite'
+// import react from '@vitejs/plugin-react'
+// import tailwindcss from '@tailwindcss/vite'
+// import path from 'path';
+
+// // https://vite.dev/config/
+// export default defineConfig({
+//   plugins: [react({ babel: {plugins: ['babel-plugin-styled-components'] }}), tailwindcss(),],
+  
+// })
+
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-import path from 'path';
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react({ babel: {plugins: ['babel-plugin-styled-components'] }}), tailwindcss(),],
-  
+  plugins: [
+    react(),  // Removed the babel configuration
+    tailwindcss()
+  ],
+  build: {
+    outDir: 'dist',
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: undefined
+      }
+    }
+  }
 })
