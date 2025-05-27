@@ -2,7 +2,6 @@ import {Routes,Route} from 'react-router-dom'
 import React from 'react'
 import Home from './Pages/Home'
 import Login from './Pages/Login'
-import SignupPage from './Pages/SignupPage'
 import Snippets from './Pages/Snippets'
 import Navbar from './components/Navbar'
 import LoginPage from './Pages/LoginPage'
@@ -13,6 +12,7 @@ import ProfilePage from './Pages/ProfilePage'
 import SettingsPage from './Pages/SettingsPage'
 import DiscussionPage from './Pages/DiscussionPage'
 import NotFoundPage from './Pages/NotFoundPage'
+import SignupPage from './Pages/SignupPage'
 
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
       <Route path="/snippets" element={<Snippets />} />
       <Route path="/compiler" element={<Compiler/>} />
       <Route path='/forgot-password' element={<ForgotPasswordPage />}/>
-      <Route path="/signup" element={<SignupPage/>} />
+      <Route path="/signup" element={<SignupPage />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="profile" element={<ProfilePage />} />
       <Route path="settings" element={<SettingsPage/>} />
@@ -42,3 +42,4 @@ function App() {
 }
 
 export default App
+
