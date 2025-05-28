@@ -7,8 +7,10 @@ import authRoutes from './routes/auth.route'
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+//helmet
 app.use(helmet());
 
+//limit
 const limiter = rateLimit({
   windowMs:15*60*1000 , //15 mins
   limit:100,
@@ -59,11 +61,11 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
   res.status(500).json({ message: 'Something went wrong!' });
 });
 
+
 // 404 handler
-app.use('*', (req:Request, res:Response) => {
+app.use((req: Request, res: Response) => {
   res.status(404).json({ message: 'Route not found' });
 });
-
 
 export default app;
 
