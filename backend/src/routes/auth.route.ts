@@ -1,16 +1,14 @@
-import {Router} from 'express';
-import {register,login,refreshToken,logout,getMe} from '../controllers/auth.controller';
-import {authenticate} from '../middlewares/auth.middleware';
+import { Router } from 'express';
+import asyncHandler from 'express-async-handler';
+import { register, login, refreshToken, logout, getMe } from '../controllers/auth.controller';
+import { authenticate } from '../middlewares/auth.middleware'
 
-const router=Router();
+const router = Router();
 
-// Public routes
-router.post('/register', register);
-router.post('/login', login);
-router.post('/refresh', refreshToken);
+router.post('/register', asyncHandler(register));
+router.post('/login', asyncHandler(login));
+router.post('/refresh', asyncHandler(refreshToken));
+router.post('/logout', asyncHandler(authenticate), asyncHandler(logout));
+router.get('/me', asyncHandler(authenticate), asyncHandler(getMe));
 
-// Protected routes
-router.post('/logout', authenticate, logout);
-router.get('/me', authenticate, getMe);
-
-export default router;      
+export default router;
