@@ -1,14 +1,14 @@
-import mongoose, { Document, Schema } from 'mongoose';
-import bcrypt from 'bcryptjs';
+import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
     unique: true,
     lowercase: true,
     trim: true,
-    inedx: true
+    index: true 
   },
   password: {
     type: String,
@@ -29,21 +29,23 @@ const userSchema = new Schema({
     type: String
   }
 }, {
-  timestamps: true
+  timestamps: true,
+  methods: {
+    async comparePassword(candidatePassword: string): Promise<boolean> {
+      return bcrypt.compare(candidatePassword, this.password);
+    }
+  }
 });
 
 // Hash password 
-userSchema.pre('save', async function(next) {
-  if (!this.isModified('password')) return next();
+userSchema.pre("save", async function(next) {
+  if (!this.isModified("password")) {
+    return next();
+  }
   this.password = await bcrypt.hash(this.password, 12);
   next();
 });
 
-// Compare password 
-userSchema.methods.comparePassword = async function(candidatePassword: string) {
-  return bcrypt.compare(candidatePassword, this.password);
-};
-
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
 export default User;
