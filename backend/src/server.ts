@@ -4,7 +4,8 @@ dotenv.config();
 import mongoose from 'mongoose';
 import app from './app';
 
-const MONGO_URI =  process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/devforge";
+const MONGO_URI =  process.env.MONGODB_URI ;
+// || mongodb://localhost:27017/devforge
 const PORT = process.env.PORT || 8080;
 
 
