@@ -3,6 +3,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import {rateLimit} from 'express-rate-limit';
 import authRoutes from './routes/auth.route'
+import snippetRoutes from './routes/snippet.route';
+import commentRoutes from './routes/comment.route';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -37,6 +39,8 @@ app.use(express.urlencoded({ extended: true }));
 
 //Routes
 app.use('/api/auth',authRoutes);
+app.use('/api/snippets', snippetRoutes);
+app.use('/api/comments', commentRoutes);
 
 
 // Basic routes
@@ -46,6 +50,8 @@ app.get('/', (req:Request, res:Response) => {
     timestamp: new Date().toISOString()
   });
 });
+
+
 
 
 app.get('/api/health', (req:Request, res:Response) => {
