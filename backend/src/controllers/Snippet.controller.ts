@@ -4,8 +4,28 @@ import Snippet from '../models/Snippet.model';
 import Comment from '../models/Comment.model';
 
 // Get all public snippets
+// export const getAllPublicSnippets = asyncHandler(async (req: Request, res: Response) => {
+//   const snippets = await Snippet.find({ visibility: 'public' })
+//     .populate('author', 'username')
+//     .sort({ createdAt: -1 });
+  
+//   res.json(snippets);
+// });
+
 export const getAllPublicSnippets = asyncHandler(async (req: Request, res: Response) => {
-  const snippets = await Snippet.find({ visibility: 'public' })
+  const { language, tags } = req.query;
+  
+  let filter: any = { visibility: 'public' };
+  
+  if (language) {
+    filter.language = language;
+  }
+  
+  if (tags) {
+    filter.tags = { $in: (tags as string).split(',') };
+  }
+  
+  const snippets = await Snippet.find(filter)
     .populate('author', 'username')
     .sort({ createdAt: -1 });
   
@@ -112,7 +132,7 @@ export const toggleSnippetLike = asyncHandler(async (req: Request, res: Response
     }
 
     const likes=snippet.get('likes') || [];
-    const isLiked = likes.incldudes(user.id);
+    const isLiked = likes.includes(user.id);
 
    if (isLiked) {
         snippet.get('likes').pull(user.id);
