@@ -5,6 +5,8 @@ import {rateLimit} from 'express-rate-limit';
 import authRoutes from './routes/auth.route'
 import snippetRoutes from './routes/snippet.route';
 import commentRoutes from './routes/comment.route';
+import sharingRoutes from './routes/sharing.route';
+import adminRoutes from './routes/admin.route';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -41,6 +43,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth',authRoutes);
 app.use('/api/snippets', snippetRoutes);
 app.use('/api/comments', commentRoutes);
+app.use('/api',sharingRoutes);
+app.use('/api/admin',adminRoutes);
 
 
 // Basic routes

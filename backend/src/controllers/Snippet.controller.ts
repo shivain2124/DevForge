@@ -148,7 +148,21 @@ export const toggleSnippetLike = asyncHandler(async (req: Request, res: Response
         liked:!isLiked,
         likesCount:snippet.get('likesCount')
     });
+});
 
-  
-  
+export const getLikedSnippets = asyncHandler(async (req:Request,res:Response)=>{
+    const userId = (req as any).user.id;
+
+    const likedSnippets = await Snippet.find({
+      likes:userId,
+      visibility:'public'
+    })
+    .populate('author','username')
+    .sort({updated:-1});
+
+    res.status(200).json({
+      message:'Liked Snippet retrieved successfully',
+      snippets:likedSnippets,
+      count:likedSnippets.length
+    });
 });
