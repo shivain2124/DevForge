@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import Snippet from '../models/Snippet.model';
 import Comment from '../models/Comment.model';
+import asyncHandler from 'express-async-handler';
 
 // Generate share link for a snippet
 export const generateShareLink = async (req: Request, res: Response) => {
@@ -29,6 +30,7 @@ export const generateShareLink = async (req: Request, res: Response) => {
       message: 'Share link generated successfully',
       shareToken,
       shareUrl: `${process.env.FRONTEND_URL}/share/${shareToken}`
+      //  shareUrl: `http://localhost:5173/share/${shareToken}`
     });
   } catch (error) {
     res.status(500).json({ message: 'Server error', error });
@@ -36,36 +38,65 @@ export const generateShareLink = async (req: Request, res: Response) => {
 };
 
 // Access snippet via share token (PUBLIC - no auth needed)
-export const getSharedSnippet = async (req: Request, res: Response) => {
-  try {
-    const { shareToken } = req.params;
+// export const getSharedSnippet = async (req: Request, res: Response) => {
+//   try {
+//     const { shareToken } = req.params;
 
-    const snippet = await Snippet.findOne({ 
-      shareToken, 
-      isShared: true 
-    })
-    .populate('author', 'username')
-    .populate({
-      path: 'comments',
-      populate: {
-        path: 'author',
-        select: 'username'
-      }
-    });
+//     const snippet = await Snippet.findOne({ 
+//       shareToken, 
+//       isShared: true 
+//     })
+//     .populate('author', 'username')
+//     .populate({
+//       path: 'comments',
+//       populate: {
+//         path: 'author',
+//         select: 'username'
+//       }
+//     });
 
-    if (!snippet) {
-      res.status(404).json({ message: 'Shared snippet not found or sharing disabled' });
-      return;
-    }
+//     if (!snippet) {
+//       res.status(404).json({ message: 'Shared snippet not found or sharing disabled' });
+//       return;
+//     }
 
-    res.status(200).json({
-      message: 'Shared snippet retrieved successfully',
-      snippet
-    });
-  } catch (error) {
-    res.status(500).json({ message: 'Server error', error });
+//     res.status(200).json({
+//       message: 'Shared snippet retrieved successfully',
+//       snippet
+//     });
+//   } catch (error) {
+//     res.status(500).json({ message: 'Server error', error });
+//   }
+// };
+
+export const getSharedSnippet = asyncHandler(async (req: Request, res: Response) => {
+  const { shareToken } = req.params;
+
+  const snippet = await Snippet.findOne({ 
+    shareToken, 
+    isShared: true 
+  }).populate('author', 'username');
+
+  if (!snippet) {
+    res.status(404);
+    throw new Error('Shared snippet not found or sharing disabled');
   }
-};
+
+  // Get comments separately (like your existing getSnippetById does)
+  const comments = await Comment.find({ snippet: snippet._id })
+    .populate('author', 'username')
+    .sort({ createdAt: 1 });
+
+  res.status(200).json({
+    message: 'Shared snippet retrieved successfully',
+    snippet: {
+      ...snippet.toObject(),
+      comments
+    }
+  });
+});
+
+
 
 // Revoke sharing for a snippet
 export const revokeSharing = async (req: Request, res: Response) => {

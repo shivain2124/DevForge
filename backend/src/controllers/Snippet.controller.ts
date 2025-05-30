@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
 import Snippet from '../models/Snippet.model';
 import Comment from '../models/Comment.model';
+import User from '../models/User.models';
 
 // Get all public snippets
 // export const getAllPublicSnippets = asyncHandler(async (req: Request, res: Response) => {
@@ -166,3 +167,33 @@ export const getLikedSnippets = asyncHandler(async (req:Request,res:Response)=>{
       count:likedSnippets.length
     });
 });
+
+
+// Simple user profile with just the basics
+export const getUserProfile = asyncHandler(async (req: Request, res: Response) => {
+  const userId = (req as any).user.id;
+  
+  // Get user basic info
+  const user = await User.findById(userId).select('-password');
+  
+  if (!user) {
+    res.status(404);
+    throw new Error('User not found');
+  }
+
+  // Just count user's snippets
+  const totalSnippets = await Snippet.countDocuments({ author: userId });
+  const sharedSnippets = await Snippet.countDocuments({ author: userId, isShared: true });
+
+  res.json({
+    message: 'User profile retrieved successfully',
+    profile: {
+      username: user.get('username'),
+      email: user.get('email'),
+      totalSnippets,
+      sharedSnippets,
+      joinedAt: user.get('createdAt')
+    }
+  });
+});
+

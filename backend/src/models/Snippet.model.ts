@@ -71,6 +71,6 @@ snippetSchema.index({ author: 1, createdAt: -1 });
 snippetSchema.index({ language: 1 });
 snippetSchema.index({ tags: 1 });
 snippetSchema.index({ visibility: 1, createdAt: -1 });
-snippetSchema.index({ shareToken: 1 });
+// snippetSchema.index({ shareToken: 1 });
 
 export default mongoose.model<Document>('Snippet', snippetSchema);
