@@ -7,7 +7,7 @@ if (!ACCESS_TOKEN_SECRET || !REFRESH_TOKEN_SECRET) {
   throw new Error("JWT secrets are not defined in environment variables.");
 }
 
-// Access Token – expires 15 minutes
+// Access Token – expires 45 minutes
 export const generateAccessToken = (userId: string): string => {
   if (!userId) {
     throw new Error('User ID is required for token generation');

@@ -1,5 +1,5 @@
 import express from 'express';
-import {getAllPublicSnippets, getCurrentUserSnippets, getSnippetById, createNewSnippet, updateSnippetById, deleteSnippetById,toggleSnippetLike} from '../controllers/Snippet.controller';
+import {getAllPublicSnippets, getCurrentUserSnippets, getSnippetById, createNewSnippet, updateSnippetById, deleteSnippetById,toggleSnippetLike, getLikedSnippets,getUserProfile} from '../controllers/Snippet.controller';
 import {authenticate} from '../middlewares/auth.middleware';
 
 const router = express.Router();
@@ -10,6 +10,8 @@ router.get('/:id', getSnippetById);
 
 //protected
 router.get('/my/snippets', authenticate, getCurrentUserSnippets);
+router.get('/my/liked', authenticate, getLikedSnippets);
+router.get('/my/profile', authenticate, getUserProfile); 
 router.post('/', authenticate, createNewSnippet);
 router.put('/:id', authenticate, updateSnippetById);
 router.delete('/:id', authenticate, deleteSnippetById);

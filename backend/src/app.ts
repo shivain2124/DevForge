@@ -5,6 +5,9 @@ import {rateLimit} from 'express-rate-limit';
 import authRoutes from './routes/auth.route'
 import snippetRoutes from './routes/snippet.route';
 import commentRoutes from './routes/comment.route';
+import sharingRoutes from './routes/sharing.route';
+import adminRoutes from './routes/admin.route';
+import { notFound, errorHandler } from './middlewares/error.middleware';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -27,31 +30,24 @@ app.use('/api',limiter);
 
 // CORS configuration for frontend
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-//Middleware
+//Body parsing Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//Routes
-app.use('/api/auth',authRoutes);
-app.use('/api/snippets', snippetRoutes);
-app.use('/api/comments', commentRoutes);
 
-
-// Basic routes
+// Basic routes before API routes
 app.get('/', (req:Request, res:Response) => {
   res.json({ 
     message: 'DevForge Backend is running lalala!',
     timestamp: new Date().toISOString()
   });
 });
-
-
 
 
 app.get('/api/health', (req:Request, res:Response) => {
@@ -61,17 +57,17 @@ app.get('/api/health', (req:Request, res:Response) => {
   });
 });
 
-// Error handling middleware
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  console.error(err.stack);
-  res.status(500).json({ message: 'Something went wrong!' });
-});
+// API routes
+app.use('/api/auth',authRoutes);
+app.use('/api/snippets', snippetRoutes);
+app.use('/api/comments', commentRoutes);
+app.use('/api',sharingRoutes);
+app.use('/api/admin',adminRoutes);
 
+//error handling middleware 
+app.use(notFound);
+app.use(errorHandler);
 
-// 404 handler
-app.use((req: Request, res: Response) => {
-  res.status(404).json({ message: 'Route not found' });
-});
 
 export default app;
 
