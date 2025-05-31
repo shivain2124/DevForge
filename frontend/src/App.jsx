@@ -1,5 +1,6 @@
 import {Routes,Route} from 'react-router-dom'
 import React from 'react'
+import {AuthProvider} from './context/auth.context'
 import Home from './Pages/Home'
 import Login from './Pages/Login'
 import Snippets from './Pages/Snippets'
@@ -17,7 +18,7 @@ import SignupPage from './Pages/SignupPage'
 
 function App() {
   return(
-    <>
+    <AuthProvider>
     <Navbar/>
     <Routes>
       <Route path="/" element={<Home />} />
@@ -31,12 +32,8 @@ function App() {
       <Route path="profile" element={<ProfilePage />} />
       <Route path="settings" element={<SettingsPage/>} />
       <Route path='discussion/:postId' element={<DiscussionPage/>} />
-      <Route path="/*" element={<NotFoundPage/>}/>
-    </Routes>
-
-    </>
-
-
+      <Route path="/*" element={<NotFoundPage/>}/></Routes>
+    </AuthProvider>
 
   );
 }

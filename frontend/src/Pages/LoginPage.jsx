@@ -1,9 +1,27 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
+import {useAuth} from '../context/auth.context';
 import LoginButton from "./LoginButton";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { login, error: authError, loading } = useAuth();
+
+  const [formData, setFormData] = useState({email: '',password: ''});
+  const [showPassword, setShowPassword] = useState(false);
+
+   const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const result = await login(formData);
+    if (result.success) {
+      navigate('/dashboard'); // Redirect after successful login
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen text-gray-800  bg-white" >
@@ -16,8 +34,9 @@ const LoginPage = () => {
       </p>
 
       {/* Form */}
-      <form className="w-full max-w-md space-y-4 px-4 sm:px-0">
+      <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4 px-4 sm:px-0">
         {/* Email Input */}
+        
         <div>
           <label
             htmlFor="email"
