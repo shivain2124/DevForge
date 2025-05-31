@@ -18,7 +18,8 @@ import SignupPage from './Pages/SignupPage'
 
 function App() {
   return(
-    <AuthProvider>
+  <AuthProvider>
+    <div>
     <Navbar/>
     <Routes>
       <Route path="/" element={<Home />} />
@@ -29,11 +30,13 @@ function App() {
       <Route path='/forgot-password' element={<ForgotPasswordPage />}/>
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="profile" element={<ProfilePage />} />
-      <Route path="settings" element={<SettingsPage/>} />
-      <Route path='discussion/:postId' element={<DiscussionPage/>} />
+      <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/settings" element={<SettingsPage/>} />
+      <Route path='/discussion/:postId' element={<DiscussionPage/>} />
       <Route path="/*" element={<NotFoundPage/>}/></Routes>
-    </AuthProvider>
+      </div>
+      </AuthProvider>
+
 
   );
 }
