@@ -7,9 +7,8 @@ export interface AuthenticatedRequest extends Request {
   userId?: string;
   user?: any;
 }
-
 export const authenticate = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
-  try {
+  try { 
     const authHeader = req.headers.authorization;
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -20,6 +19,7 @@ export const authenticate = async (req: AuthenticatedRequest, res: Response, nex
     const token = authHeader.split(' ')[1];
     const decoded = verifyAccessToken(token) as any;
     
+    
     const user = await User.findById(decoded.id).select('-password -refreshToken');
     if (!user) {
       res.status(401).json({ message: 'User not found' });
@@ -27,9 +27,13 @@ export const authenticate = async (req: AuthenticatedRequest, res: Response, nex
     }
 
     req.userId = decoded.id;
-    req.user = user;
+    req.user = { 
+      id: decoded.id,
+      ...user.toObject() 
+    };
     next();
   } catch (error) {
+    console.error('Auth middleware error:', error);
     res.status(403).json({ message: 'Invalid or expired token' });
   }
 };
