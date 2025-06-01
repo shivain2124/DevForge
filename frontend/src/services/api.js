@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://dev-forge-backend.vercel.app/api'
+  ? 'https://devforge-backend.onrender.com/api'
   : 'http://localhost:8080/api';
 
   // https://dev-forge-backend.vercel.app/
