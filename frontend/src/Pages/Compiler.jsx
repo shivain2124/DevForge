@@ -1,4 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import { snippetService } from '../services/snippet.service';
+import { useAuth } from '../context/auth.context';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import CodeEditor from '../components/CodeEditor';
 import TagsInput from '../components/TagsInput';
 
@@ -45,6 +48,12 @@ const Compiler = () => {
   const [error, setError] = useState('');
   const [tags, setTags] = useState([]);
   const [title, setTitle] = useState('');
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  const [isSaving, setIsSaving] = useState(false);
+  const [editingId, setEditingId] = useState(null);
+  const [isLoadingSnippet, setIsLoadingSnippet] = useState(false);
+  const [searchParams] = useSearchParams();
   
   // Theme state with localStorage persistence
   const [theme, setTheme] = useState(() => {
@@ -58,6 +67,34 @@ const Compiler = () => {
       setTheme(savedTheme);
     }
   }, []);
+
+  // Check for edit parameter on mount
+  useEffect(() => {
+    const editId = searchParams.get('edit');
+    
+    if (editId && isAuthenticated) {
+      loadSnippetForEdit(editId);
+    }
+  }, [searchParams, isAuthenticated]);
+
+  // Load snippet for editing
+  const loadSnippetForEdit = async (id) => {
+    setIsLoadingSnippet(true);
+    try {
+      const snippet = await snippetService.getSnippet(id);
+      setTitle(snippet.title || '');
+      setLanguage(snippet.language || 'java');
+      setCode(snippet.code || '');
+      setTags(snippet.tags || []);
+      setEditingId(id);
+    } catch (error) {
+      console.error('Error loading snippet for edit:', error);
+      alert('Failed to load snippet for editing');
+      navigate('/snippets');
+    } finally {
+      setIsLoadingSnippet(false);
+    }
+  };
 
   // Toggle theme function with useCallback
   const toggleTheme = useCallback(() => {
@@ -116,20 +153,80 @@ const Compiler = () => {
     }
   }, [language, code, input]);
 
-  // Save code handler with useCallback
-  const handleSaveCode = useCallback(() => {
-    const codeSnippet = {
-      title: title || "Untitled Snippet",
-      language,
-      code,
-      tags,
-      input,
-      createdAt: new Date().toISOString()
-    };
+  // Save/Update code handler with useCallback
+  const handleSaveCode = useCallback(async () => {
+    if (!isAuthenticated) {
+      alert('Please log in to save snippets');
+      navigate('/auth');
+      return;
+    }
 
-    console.log("Saving code snippet:", codeSnippet);
-    alert("Code snippet saved successfully!");
-  }, [title, language, code, tags, input]);
+    if (!code.trim()) {
+      alert('Please write some code before saving');
+      return;
+    }
+
+    if (!title.trim()) {
+      alert('Please enter a title for your snippet');
+      return;
+    }
+
+    setIsSaving(true);
+    
+    try {
+      const snippetData = {
+        title: title.trim(),
+        language,
+        code,
+        description: `${language} code snippet`,
+        tags,
+        visibility: 'public' 
+      };
+
+        let result;
+
+      if (editingId) {
+        // Update existing snippet
+        result=await snippetService.updateSnippet(editingId, snippetData);
+        alert("Snippet updated successfully!");
+      } else {
+        // Create new snippet
+        result=await snippetService.createSnippet(snippetData);
+        alert("Code snippet saved successfully!");
+      }
+      
+      navigate('/snippets');
+      
+    } catch (error) {
+      console.error('Error saving snippet:', error);
+      const errorMessage = error.response?.data?.message || 'Failed to save snippet. Please try again.';
+      alert(errorMessage);
+    } finally {
+      setIsSaving(false);
+    }
+  }, [title, language, code, tags, editingId, isAuthenticated, navigate]);
+
+  // Clear form handler
+  const handleClearForm = useCallback(() => {
+    if (window.confirm('Are you sure you want to clear all fields?')) {
+      setTitle('');
+      setCode('');
+      setTags([]);
+      setInput('');
+      setOutput('');
+      setError('');
+      setEditingId(null);
+      // Remove edit parameter from URL
+      navigate('/compiler', { replace: true });
+    }
+  }, [navigate]);
+
+  // Cancel edit handler
+  const handleCancelEdit = useCallback(() => {
+    if (window.confirm('Are you sure you want to cancel editing? Unsaved changes will be lost.')) {
+      navigate('/snippets');
+    }
+  }, [navigate]);
 
   // Language change handler with useCallback
   const handleLanguageChange = useCallback((e) => {
@@ -150,6 +247,15 @@ const Compiler = () => {
   const handleCodeChange = useCallback((newCode) => {
     setCode(newCode);
   }, []);
+
+  // Show loading state while loading snippet for edit
+  if (isLoadingSnippet) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-900">
+        <div className="text-white text-xl">Loading snippet for editing...</div>
+      </div>
+    );
+  }
 
   // Conditional UI based on theme
   const uiClasses = theme === 'dark' 
@@ -176,7 +282,16 @@ const Compiler = () => {
 
   return (
     <div className={uiClasses.container}>
-      <h1 className={uiClasses.title}>Code Compiler</h1>
+      <h1 className={uiClasses.title}>
+        {editingId ? 'Edit Code Snippet' : 'Code Compiler'}
+      </h1>
+      
+      {/* Edit mode indicator */}
+      {editingId && (
+        <div className="mb-4 p-3 bg-blue-100 border border-blue-300 rounded-lg text-blue-800 text-center">
+          <span className="font-semibold">Editing Mode:</span> You are currently editing an existing snippet
+        </div>
+      )}
       
       {/* Title input */}
       <div className="mb-4">
@@ -184,8 +299,9 @@ const Compiler = () => {
           type="text"
           value={title}
           onChange={handleTitleChange}
-          placeholder="Enter snippet title"
+          placeholder="Enter snippet title (required)"
           className={uiClasses.input}
+          required
         />
       </div>
   
@@ -198,7 +314,7 @@ const Compiler = () => {
         theme={theme}
       />
   
-      <div className="mt-6 flex items-center mb-6">
+      <div className="mt-6 flex flex-wrap items-center mb-6 gap-4">
         <div className="mr-4">
           <select
             className={uiClasses.select}
@@ -224,7 +340,7 @@ const Compiler = () => {
           {theme === 'light' ? '🌙' : '☀️'}
         </button>
   
-        <div className="flex items-center space-x-4">
+        <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={handleRunCode}
             className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded shadow-sm transition-colors"
@@ -235,9 +351,26 @@ const Compiler = () => {
   
           <button
             onClick={handleSaveCode}
-            className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded shadow-sm transition-colors"
+            className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded shadow-sm transition-colors disabled:opacity-50"
+            disabled={isSaving}
           >
-            Save
+            {isSaving ? 'Saving...' : editingId ? 'Update' : 'Save'}
+          </button>
+
+          {editingId && (
+            <button
+              onClick={handleCancelEdit}
+              className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded shadow-sm transition-colors"
+            >
+              Cancel Edit
+            </button>
+          )}
+
+          <button
+            onClick={handleClearForm}
+            className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded shadow-sm transition-colors"
+          >
+            Clear
           </button>
         </div>
       </div>
@@ -287,7 +420,6 @@ const Compiler = () => {
                 value={error || output}
                 readOnly
               ></textarea>
-
             </div>
           </div>
         </div>
