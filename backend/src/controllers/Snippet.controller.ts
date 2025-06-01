@@ -4,15 +4,6 @@ import Snippet from '../models/Snippet.model';
 import Comment from '../models/Comment.model';
 import User from '../models/User.models';
 
-// Get all public snippets
-// export const getAllPublicSnippets = asyncHandler(async (req: Request, res: Response) => {
-//   const snippets = await Snippet.find({ visibility: 'public' })
-//     .populate('author', 'username')
-//     .sort({ createdAt: -1 });
-  
-//   res.json(snippets);
-// });
-
 export const getAllPublicSnippets = asyncHandler(async (req: Request, res: Response) => {
   const { language, tags } = req.query;
   
@@ -61,9 +52,18 @@ export const getSnippetById = asyncHandler(async (req: Request, res: Response) =
 
 // Create snippet
 export const createNewSnippet = asyncHandler(async (req: Request, res: Response) => {
-  const user = (req as any).user;
+
   const { title, code, language, description, tags, visibility } = req.body;
   
+  if (!title || !code || !language) {
+     res.status(400).json({ 
+      message: 'Title, code, and language are required',
+      received: { title, code: !!code, language }
+    });
+    return;
+  }
+
+  // Use a hardcoded user ID for testing
   const snippet = await Snippet.create({
     title,
     code,
@@ -71,9 +71,9 @@ export const createNewSnippet = asyncHandler(async (req: Request, res: Response)
     description,
     tags: tags || [],
     visibility: visibility || 'public',
-    author: user.id
+    author: '683b5d6f4f1010902dab662a' // Your existing user ID
   });
-  
+
   res.status(201).json(snippet);
 });
 
