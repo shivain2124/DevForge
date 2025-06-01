@@ -1,6 +1,11 @@
 import axios from 'axios'
 
-const API_BASE_URL = 'http://localhost:8080/api'
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://dev-forge-backend.vercel.app/api'
+  : 'http://localhost:8080/api';
+
+  // https://dev-forge-backend.vercel.app/
+
 
 // Create axios instance with default config
 const api = axios.create({

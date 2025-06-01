@@ -28,11 +28,6 @@ const limiter = rateLimit({
 
 app.use('/api',limiter);
 
-// const allowedOrigins = [
-//   'https://dev-forge-frontend.vercel.app',
-//   'http://localhost:5173'
-// ];
-
 // CORS configuration for frontend
 app.use(cors({
     origin: ['http://localhost:5173','https://dev-forge-frontend.vercel.app'],
