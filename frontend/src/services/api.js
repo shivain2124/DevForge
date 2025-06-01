@@ -18,7 +18,9 @@ api.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
-    console.log('Making request to:', config.url)
+    if(config.method === 'post' || config.method === 'put') {
+      config.headers['Content-Type'] = 'application/json';
+    }
     return config
   },
   (error) => {

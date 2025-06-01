@@ -4,10 +4,6 @@ import {authenticate} from '../middlewares/auth.middleware';
 
 const router = express.Router();
 
-//public
-router.get('/', getAllPublicSnippets);
-router.get('/:id', getSnippetById);
-
 //protected
 router.get('/my/snippets', authenticate, getCurrentUserSnippets);
 router.get('/my/liked', authenticate, getLikedSnippets);
@@ -16,5 +12,9 @@ router.post('/', authenticate, createNewSnippet);
 router.put('/:id', authenticate, updateSnippetById);
 router.delete('/:id', authenticate, deleteSnippetById);
 router.post('/:id/like', authenticate, toggleSnippetLike);
+
+//public
+router.get('/', getAllPublicSnippets);
+router.get('/:id', getSnippetById);
 
 export default router;

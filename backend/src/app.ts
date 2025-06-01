@@ -36,10 +36,25 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-//Body parsing Middleware
+// Body parsing Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use((req, res, next) => {  // 5.x ka panga
+  if (req.body === undefined) {
+    req.body = {};
+  }
+  next();
+});
+
+// Additional safety middleware
+app.use((req, res, next) => {
+  if (req.body === undefined || req.body === null) {
+    req.body = {};
+  }
+  console.log('Middleware check - req.body:', req.body, 'type:', typeof req.body);
+  next();
+});
 
 // Basic routes before API routes
 app.get('/', (req:Request, res:Response) => {
