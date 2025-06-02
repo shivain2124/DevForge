@@ -3,7 +3,7 @@ import api from './api';
 export const snippetService={
     getAllSnippets:async()=>{
         const response=await api.get('/snippets/my/snippets');
-        return response.data;
+        return {snippets:response.data};
     },
     getSnippet:async(id)=>{
         const response = await api.get(`/snippets/${id}`);

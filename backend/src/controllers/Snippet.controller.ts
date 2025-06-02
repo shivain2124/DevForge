@@ -71,7 +71,7 @@ export const createNewSnippet = asyncHandler(async (req: Request, res: Response)
     description,
     tags: tags || [],
     visibility: visibility || 'public',
-    author: '683b5d6f4f1010902dab662a' // Your existing user ID
+    author: (req as any).user.id 
   });
 
   res.status(201).json(snippet);
