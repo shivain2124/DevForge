@@ -113,6 +113,7 @@ export const logout = async (req: Request, res: Response): Promise<void> => {
 };
 
 export const getMe = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+  const userId=req.userId || (req as any).user?.id;
   const user = await User.findById(req.userId).select('-password -refreshToken');
   if (!user) {
     res.status(404).json({ message: 'User not found' });
