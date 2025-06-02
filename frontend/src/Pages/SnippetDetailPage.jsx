@@ -5,6 +5,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { snippetService } from '../services/snippet.service';
 import { useAuth } from '../context/auth.context';
+import Comments from '../components/Comments';
 
 const SnippetDetailPage = () => {
   const { id } = useParams();
@@ -222,6 +223,10 @@ const SnippetDetailPage = () => {
           </SyntaxHighlighter>
         </div>
       </div>
+
+      <div className="mt-8">
+  <Comments snippetId={id} />
+</div>
     </div>
   );
 };

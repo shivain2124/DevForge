@@ -109,7 +109,7 @@ const SnippetCard = ({ snippet, onLike, onCopy, onEdit, onDelete, onTagClick }) 
             <FiTrash2 size={16} />
           </button>
           <Link 
-            to={`/discussion/${snippet._id}`} 
+            to={`/snippet/${snippet._id}`} 
             className="p-1.5 text-gray-600 hover:text-purple-500 hover:bg-purple-50 rounded-full transition-all"
             title="View Discussion"
           >

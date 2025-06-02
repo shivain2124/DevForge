@@ -16,6 +16,20 @@ const PORT = process.env.PORT || 8080;
 app.use(helmet());
 
 //limit
+
+// CORS configuration for frontend
+app.use(cors({
+  origin: ['http://localhost:5173','https://dev-forge-frontend.vercel.app'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// Body parsing Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+
 const limiter = rateLimit({
   windowMs:15*60*1000 , //15 mins
   limit:100,
@@ -24,22 +38,11 @@ const limiter = rateLimit({
   },
   standardHeaders:true,
   legacyHeaders:false,
+  skip: (req) => req.method === 'OPTIONS',
 })
 
 app.use('/api',limiter);
 
-// CORS configuration for frontend
-app.use(cors({
-    origin: ['http://localhost:5173','https://dev-forge-frontend.vercel.app'],
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
-
-
-// Body parsing Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {  // 5.x ka panga
   if (req.body === undefined) {
