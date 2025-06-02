@@ -1,26 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import SettingsPage from './SettingsPage';
 import Dashboard from './Dashboard';
 import Snippets from './Snippets';
 import LikedSnippetPage from './LikedSnippetPage';
+import {useAuth} from '../context/auth.context';
+import {snippetService} from '../services/snippet.service';
 
 
 const ProfilePage = () => {
   // State to track the active tab
   const [activeTab, setActiveTab] = useState('overview');
   const navigate=useNavigate();
+  const {user} = useAuth();
+  const [userStats, setUserStats] = useState({
+    postsCount: 0,
+    likesCount: 0,
+  });
+  useEffect(() => {
+    if(user){
+      loadUserStats();
+    } 
+  }, [user]);
 
-  // Mock user data
-  const userData = {
-    name: 'Shivain Sharma',
-    email: 'shivainsharma2124@gmail.com',
-    bio: 'Be Happy, Be Positive, Be Yourself',
-    postsCount: 446,
-    likesCount: 42,
-    sharedCount: 8,
+  const loadUserStats = async () => {
+    try {
+      const response = await snippetService.getAllSnippets();
+      const snippets = response.snippets || [];
+      const totalLikes = snippets.reduce((sum, snippet) => sum + (snippet.likesCount || 0), 0);
+      
+      setUserStats({
+        postsCount: snippets.length,
+        likesCount: totalLikes,
+      });
+    } catch (error) {
+      console.error('Error loading user stats:', error);
+    }
   };
+
+  const userData = {
+    name: user?.username || 'User',
+    email: user?.email || 'user@example.com',
+    bio: 'Passionate developer sharing code snippets with the DevForge community',
+    postsCount: userStats.postsCount,
+    likesCount: userStats.likesCount,
+  };
+
 
   return (
     <div className="bg-white text-gray-900 min-h-screen py-8 px-4 sm:px-10">
@@ -47,9 +73,6 @@ const ProfilePage = () => {
             </p>
             <p className="text-sm text-gray-600">
               Likes: <span className="font-semibold text-gray-800">{userData.likesCount}</span>
-            </p>
-            <p className="text-sm text-gray-600">
-              Shared: <span className="font-semibold text-gray-800">{userData.sharedCount}</span>
             </p>
           </div>
         </div>
@@ -82,14 +105,7 @@ const ProfilePage = () => {
             >
               Likes
             </button>
-            <button
-              onClick={() => setActiveTab('shared')}
-              className={`px-4 py-2 rounded ${
-                activeTab === 'shared' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              } transition-all duration-300`}
-            >
-              Shared
-            </button>
+            
             <button
                onClick={() => setActiveTab('settings')}
 

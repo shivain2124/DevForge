@@ -37,6 +37,7 @@ function App() {
       <Route path="/settings" element={<SettingsPage/>} />
       <Route path="/explore" element={<ExplorePage />} />
       <Route path="/snippet/:id" element={<SnippetDetailPage />} />
+      {/* <Route path='/share' */}
       <Route path='/discussion/:postId' element={<DiscussionPage/>} />
       <Route path="/liked" element={<LikedSnippetPage />} />
       <Route path="/*" element={<NotFoundPage/>}/></Routes>

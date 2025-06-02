@@ -34,4 +34,16 @@ export const snippetService={
         const response = await api.get('/snippets/my/liked');
         return response.data;
     },
+     generateShareLink: async (snippetId) => {
+        const response = await api.post(`/snippets/${snippetId}/share`);
+        return response.data;
+    },
+    getSharedSnippets:async()=>{
+        const response=await api.get(`/share/${shareToken}`);
+        return response.data;
+    },
+    revokeSharing: async (snippetId) => {
+        const response = await api.delete(`/snippets/${snippetId}/share`);
+        return response.data;
+    }
 }
