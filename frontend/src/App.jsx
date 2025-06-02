@@ -14,6 +14,7 @@ import SettingsPage from './Pages/SettingsPage'
 import DiscussionPage from './Pages/DiscussionPage'
 import NotFoundPage from './Pages/NotFoundPage'
 import SignupPage from './Pages/SignupPage'
+import ExplorePage from './Pages/Explore'
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/settings" element={<SettingsPage/>} />
+      <Route path="/explore" element={<ExplorePage />} />
       <Route path='/discussion/:postId' element={<DiscussionPage/>} />
       <Route path="/*" element={<NotFoundPage/>}/></Routes>
       </div>
