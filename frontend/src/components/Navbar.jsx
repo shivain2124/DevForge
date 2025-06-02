@@ -44,6 +44,9 @@ const Navbar = () => {
             <Link to="/compiler" className="text-sm/6 font-semibold text-gray-900 ">
               Code
             </Link>
+            <Link to="/explore" className="text-sm/6 font-semibold text-gray-900 hover:text-blue-600 transition-colours duration-200">
+             Explore
+            </Link>
             <Link to="/snippets" className="text-sm/6 font-semibold text-gray-900 ">
               Snippets
             </Link>
@@ -140,6 +143,13 @@ const Navbar = () => {
                     >
                       Code
                     </Link>
+                    <Link
+                    to="/explore"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Explore
+                  </Link>
                     <Link
                       to="/snippets"
                       className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"

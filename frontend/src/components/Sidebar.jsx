@@ -54,6 +54,29 @@ const Sidebar = ({ onFilterChange }) => {
               <span>Favorites</span>
             </button>
           </li>
+<li>
+  <button 
+    className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg ${
+      activeFilter === "public" ? "bg-blue-600 text-white" : "text-gray-300 hover:bg-gray-800"
+    }`}
+    onClick={() => handleFilterClick("public")}
+  >
+    <FiGlobe size={18} />
+    <span>Public</span>
+  </button>
+</li>
+<li>
+  <button 
+    className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg ${
+      activeFilter === "private" ? "bg-blue-600 text-white" : "text-gray-300 hover:bg-gray-800"
+    }`}
+    onClick={() => handleFilterClick("private")}
+  >
+    <FiLock size={18} />
+    <span>Private</span>
+  </button>
+</li>
+
           <li>
             <button 
               className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg ${
