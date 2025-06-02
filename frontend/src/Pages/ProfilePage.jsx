@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import SettingsPage from './SettingsPage';
 import Dashboard from './Dashboard';
-import PostsPage from './PostsPage';
+import Snippets from './Snippets';
+import LikedSnippetPage from './LikedSnippetPage';
 
 
 const ProfilePage = () => {
@@ -109,13 +110,14 @@ const ProfilePage = () => {
             )}
             {activeTab === 'posts' && (
               <div>
-               <PostsPage/>
+                <Snippets />
               </div>
             )}
             {activeTab === 'likes' && (
               <div>
-                <h2 className="text-xl font-semibold text-gray-800 mb-4">Your Likes</h2>
-                <p className="text-gray-700">This section will display all posts you have liked.</p>
+                <LikedSnippetPage/>
+                {/* <h2 className="text-xl font-semibold text-gray-800 mb-4">Your Likes</h2>
+                <p className="text-gray-700">This section will display all posts you have liked.</p> */}
               </div>
             )}
             {activeTab === 'shared' && (

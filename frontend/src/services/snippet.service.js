@@ -30,4 +30,8 @@ export const snippetService={
         const response = await api.get(`/snippets?${queryParams}`); 
         return response.data;
     },
+     getLikedSnippets: async () => {
+        const response = await api.get('/snippets/my/liked');
+        return response.data;
+    },
 }

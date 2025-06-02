@@ -16,6 +16,7 @@ import NotFoundPage from './Pages/NotFoundPage'
 import SignupPage from './Pages/SignupPage'
 import ExplorePage from './Pages/Explore'
 import SnippetDetailPage from './Pages/SnippetDetailPage'
+import LikedSnippetPage from './Pages/LikedSnippetPage'
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
       <Route path="/explore" element={<ExplorePage />} />
       <Route path="/snippet/:id" element={<SnippetDetailPage />} />
       <Route path='/discussion/:postId' element={<DiscussionPage/>} />
+      <Route path="/liked" element={<LikedSnippetPage />} />
       <Route path="/*" element={<NotFoundPage/>}/></Routes>
       </div>
       </AuthProvider>
