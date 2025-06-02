@@ -54,7 +54,7 @@ export const getSnippetById = asyncHandler(async (req: Request, res: Response) =
 export const createNewSnippet = asyncHandler(async (req: Request, res: Response) => {
 
   const { title, code, language, description, tags, visibility } = req.body;
-  
+
   if (!title || !code || !language) {
      res.status(400).json({ 
       message: 'Title, code, and language are required',

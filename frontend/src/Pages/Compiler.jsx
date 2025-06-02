@@ -54,6 +54,7 @@ const Compiler = () => {
   const [editingId, setEditingId] = useState(null);
   const [isLoadingSnippet, setIsLoadingSnippet] = useState(false);
   const [searchParams] = useSearchParams();
+  const [visibility, setVisibility] = useState('public');
   
   // Theme state with localStorage persistence
   const [theme, setTheme] = useState(() => {
@@ -86,6 +87,7 @@ const Compiler = () => {
       setLanguage(snippet.language || 'java');
       setCode(snippet.code || '');
       setTags(snippet.tags || []);
+      setVisibility(snippet.visibility || 'public');
       setEditingId(id);
     } catch (error) {
       console.error('Error loading snippet for edit:', error);
@@ -180,7 +182,7 @@ const Compiler = () => {
         code,
         description: `${language} code snippet`,
         tags,
-        visibility: 'public' 
+        visibility: visibility || 'public', 
       };
 
         let result;
@@ -248,6 +250,11 @@ const Compiler = () => {
     setCode(newCode);
   }, []);
 
+  const handleVisibilityChange = (e) => {
+  setVisibility(e.target.value);
+};
+
+
   // Show loading state while loading snippet for edit
   if (isLoadingSnippet) {
     return (
@@ -303,6 +310,18 @@ const Compiler = () => {
           className={uiClasses.input}
           required
         />
+      </div>
+
+      <div className="mb-4">
+        <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+          Visibility
+        </label>
+        <select
+          value={visibility} onChange={handleVisibilityChange} className={uiClasses.select}
+        >
+          <option value="public">🌐 Public - Visible to everyone</option>
+          <option value="private">🔒 Private - Only visible to you</option>
+        </select>
       </div>
   
       {/* Tags Input Component */}
