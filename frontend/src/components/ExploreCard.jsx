@@ -61,13 +61,14 @@ const ExploreCard = ({ snippet, onView, onLike }) => {
           
           {/* View Full Code Overlay */}
           <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <button
-              onClick={onView}
-              className="bg-white text-gray-900 px-4 py-2 rounded-lg font-medium flex items-center gap-2 hover:bg-gray-100 transition-colors"
-            >
-              <FiEye size={16} />
-              View Full Code
-            </button>
+          <button
+            onClick={() => window.location.href = `/snippet/${snippet._id}`}
+            className="bg-white text-gray-900 px-4 py-2 rounded-lg font-medium flex items-center gap-2 hover:bg-gray-100 transition-colors"
+          >
+            <FiEye size={16} />
+            View Full Code
+          </button>
+
           </div>
         </div>
       </div>
