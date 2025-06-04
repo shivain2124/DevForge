@@ -1,10 +1,25 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiX, FiMenu } from 'react-icons/fi';
+import { useAuth } from '../context/auth.context';
+import {useNavigate} from 'react-router-dom';
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileDropdown, setProfileDropdown] = useState(false);
+  const { user,logout} = useAuth();
+  const navigate = useNavigate();
+
+  function getInitials(nameOrEmail) {
+    if (!nameOrEmail) return 'U';
+    const [name] = nameOrEmail.split('@');
+    return name
+      .split(' ')
+      .map((n) => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  }
 
   return (
     <div className="bg-white pt-2">
@@ -13,17 +28,12 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex lg:flex-1">
             <Link to="/" className="-m-1.5 p-1.5 flex items-center gap-2">
-              <img 
-                src="/logo1.png" 
-                alt="DevForge" 
-                className="h-8 w-auto" 
-              />
               <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
                 DevForge
               </span>
             </Link>
           </div>
-          
+
           {/* Mobile menu button */}
           <div className="flex lg:hidden">
             <button
@@ -35,72 +45,94 @@ const Navbar = () => {
               <FiMenu className="size-6" aria-hidden="true" />
             </button>
           </div>
-          
+
           {/* Desktop navigation */}
           <div className="hidden lg:flex lg:gap-x-12">
-            <Link to="/" className="text-sm/6 font-semibold text-gray-900 hover: text-blue-600 transition-colours duration-200">
+            <Link to="/" className="text-sm/6 font-semibold text-gray-900 hover:text-blue-600 transition-colours duration-200">
               Home
             </Link>
-            <Link to="/compiler" className="text-sm/6 font-semibold text-gray-900 ">
+            <Link to="/compiler" className="text-sm/6 font-semibold text-gray-900">
               Code
             </Link>
             <Link to="/explore" className="text-sm/6 font-semibold text-gray-900 hover:text-blue-600 transition-colours duration-200">
-             Explore
+              Explore
             </Link>
-            <Link to="/snippets" className="text-sm/6 font-semibold text-gray-900 ">
+            <Link to="/snippets" className="text-sm/6 font-semibold text-gray-900">
               Snippets
             </Link>
           </div>
-          
+
           {/* Profile/Login section */}
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <button 
-              onClick={() => setProfileDropdown(!profileDropdown)}
-              className="flex items-center gap-2 text-sm/6 font-semibold text-gray-900"
-            >
-              <span>Account</span>
-              <div className="h-8 w-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm">
-                SS
-              </div>
-            </button>
-            
-            {/* Profile Dropdown */}
-            {profileDropdown && (
-              <div className="absolute right-8 top-16 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                <div className="py-1" role="menu" aria-orientation="vertical">
-                  <div className="px-4 py-3 border-b border-gray-100">
-                    <p className="text-sm text-gray-500">Signed in as</p>
-                    <p className="text-sm font-medium truncate text-blue-600">user@example.com</p>
+            {user ? (
+              <>
+                <button 
+                  onClick={() => setProfileDropdown(!profileDropdown)}
+                  className="flex items-center gap-2 text-sm/6 font-semibold text-gray-900"
+                >
+                  <span>{user.username || 'User'}</span>
+                  <div className="h-8 w-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm">
+                    {getInitials(user.username || user.email || 'User')}
                   </div>
-                  <Link 
-                    to="/profile" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                    onClick={() => setProfileDropdown(false)}
-                  >
-                    Your Profile
-                  </Link>
-                  <Link 
-                    to="/settings" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                    onClick={() => setProfileDropdown(false)}
-                  >
-                    Settings
-                  </Link>
-                  <button 
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                    onClick={() => {
-                      // Handle logout logic here
-                      setProfileDropdown(false);
-                    }}
-                  >
-                    Sign out
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
+                </button>
+                {/* Profile Dropdown */}
+                {profileDropdown && (
+                  <div className="absolute right-8 top-16 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                    <div className="py-1" role="menu" aria-orientation="vertical">
+                      <div className="px-4 py-3 border-b border-gray-100">
+                        <p className="text-sm text-gray-500">Signed in as</p>
+                        <p className="text-sm font-medium truncate text-blue-600">{user.email || 'User'}</p>
+                      </div>
+                      <Link 
+                        to="/profile" 
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        onClick={() => setProfileDropdown(false)}
+                      >
+                        Your Profile
+                      </Link>
+                      <Link 
+                        to="/settings" 
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        onClick={() => setProfileDropdown(false)}
+                      >
+                        Settings
+                      </Link>
+                      <button 
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        onClick={() => {
+                          // Handle logout logic here
+                          logout();
+                          setProfileDropdown(false);
+                          navigate('/auth'); 
+                        }}
+                      >
+                        Sign out
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </>
+            ) : (
+              <Link
+                to="/auth"
+                className="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-semibold rounded-full bg-blue-50 text-blue-700 hover:bg-blue-100 transition-all duration-150"
+              >
+                Log in
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+              )}
+            </div>
         </nav>
-        
+
         {/* Mobile menu */}
         {mobileMenuOpen && (
           <div className="fixed inset-0 z-50 lg:hidden">
@@ -108,11 +140,6 @@ const Navbar = () => {
             <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
               <div className="flex items-center justify-between">
                 <Link to="/" className="-m-1.5 p-1.5 flex items-center gap-2">
-                  <img 
-                    src="/logo1.png" 
-                    alt="DevForge" 
-                    className="h-8 w-auto" 
-                  />
                   <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
                     DevForge
                   </span>
@@ -144,12 +171,12 @@ const Navbar = () => {
                       Code
                     </Link>
                     <Link
-                    to="/explore"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Explore
-                  </Link>
+                      to="/explore"
+                      className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Explore
+                    </Link>
                     <Link
                       to="/snippets"
                       className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
@@ -159,29 +186,43 @@ const Navbar = () => {
                     </Link>
                   </div>
                   <div className="py-6">
-                    <Link
-                      to="/profile"
-                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      Profile
-                    </Link>
-                    <Link
-                      to="/settings"
-                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      Settings
-                    </Link>
-                    <button
-                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50 w-full text-left"
-                      onClick={() => {
-                        // Handle logout logic here
-                        setMobileMenuOpen(false);
-                      }}
-                    >
-                      Sign out
-                    </button>
+                    {user ? (
+                      <>
+                        <Link
+                          to="/profile"
+                          className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          Profile
+                        </Link>
+                        <Link
+                          to="/settings"
+                          className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          Settings
+                        </Link>
+                        <button
+                          className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50 w-full text-left"
+                          onClick={() => {
+                            // Handle logout logic here
+                            logout();
+                            setMobileMenuOpen(false);
+                            navigate('/auth');
+                          }}
+                        >
+                          Sign out
+                        </button>
+                      </>
+                    ) : (
+                      <Link
+                        to="/auth"
+                        className="px-4 py-2 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition block text-center"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        Sign in
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>

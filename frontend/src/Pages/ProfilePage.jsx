@@ -18,6 +18,13 @@ const ProfilePage = () => {
     postsCount: 0,
     likesCount: 0,
   });
+useEffect(() => {
+  if (!user) {
+    navigate('/auth', { replace: true });
+  }
+}, [user, navigate]);
+
+
   useEffect(() => {
     if(user){
       loadUserStats();

@@ -57,7 +57,12 @@ const Compiler = () => {
   const [searchParams] = useSearchParams();
   const [visibility, setVisibility] = useState('public');
   
-  const roomId = searchParams.get('id') || 'default-room';
+  let roomId = searchParams.get('room')
+  if(!roomId){
+    roomId = crypto.randomUUID(); // or use uuid()
+    navigate(`/compiler?room=${roomId}`, { replace: true });
+}
+
 const { user } = useAuth();
 const username = user?.username || user?.name || user?.email || 'Guest';
 
@@ -350,14 +355,14 @@ const username = user?.username || user?.name || user?.email || 'Guest';
   </div>
 
   {/* RIGHT: Collaboration panel */}
-  <div className="w-full md:w-96 bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 flex flex-col items-center">
-    <h2 className="text-xl font-bold mb-3 text-indigo-600 dark:text-indigo-400">👥 Collaboration</h2>
+  <div className="w-full md:w-96 bg-white p-6 rounded-2xl shadow-lg border border-gray-200flex flex-col items-center">
+    <h2 className="text-xl font-bold mb-3 text-indigo-600">👥 Collaboration</h2>
     <ul className="mb-4 w-full">
       {users.length === 0 ? (
         <li className="text-gray-400 text-center">No collaborators yet</li>
       ) : (
         users.map((u) => (
-          <li key={u} className="py-1 px-2 rounded bg-indigo-50 dark:bg-indigo-900 mb-2 text-indigo-700 dark:text-indigo-200 text-center">
+          <li key={u} className="py-1 px-2 rounded bg-indigo-50 mb-2 text-indigo-700 text-center">
             {u}
           </li>
         ))
@@ -365,7 +370,7 @@ const username = user?.username || user?.name || user?.email || 'Guest';
     </ul>
     <div className="w-full">
       <input
-        className="w-full p-2 rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-center font-mono text-xs"
+        className="w-full p-2 rounded border border-gray-300 bg-gray-50 text-center font-mono text-xs"
         value={window.location.href}
         readOnly
         onFocus={e => e.target.select()}
