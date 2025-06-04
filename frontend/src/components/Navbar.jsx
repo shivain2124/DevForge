@@ -51,13 +51,13 @@ const Navbar = () => {
             <Link to="/" className="text-sm/6 font-semibold text-gray-900 hover:text-blue-600 transition-colours duration-200">
               Home
             </Link>
-            <Link to="/compiler" className="text-sm/6 font-semibold text-gray-900">
+            <Link to="/compiler" className="text-sm/6 font-semibold text-gray-900 hover:text-blue-600 transition-colours duration-200">
               Code
             </Link>
             <Link to="/explore" className="text-sm/6 font-semibold text-gray-900 hover:text-blue-600 transition-colours duration-200">
               Explore
             </Link>
-            <Link to="/snippets" className="text-sm/6 font-semibold text-gray-900">
+            <Link to="/snippets" className="text-sm/6 font-semibold text-gray-900 hover:text-blue-600 transition-colours duration-200">
               Snippets
             </Link>
           </div>
