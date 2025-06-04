@@ -4,6 +4,7 @@ import ExploreCard from '../components/ExploreCard';
 import SnippetModal from '../components/SnippetModal';
 import SearchFilters from '../components/SearchFilter';
 import { snippetService } from '../services/snippet.service';
+import { CountingNumber } from '@/components/animate-ui/text/counting-number';
 
 const ExplorePage = () => {
   const [snippets, setSnippets] = useState([]);
@@ -84,19 +85,56 @@ const ExplorePage = () => {
               Discover amazing code snippets shared by the DevForge community
             </p>
             
-            {/* Stats */}
-            <div className="flex justify-center gap-8 mb-8">
-              <div className="text-center">
-                <div className="text-3xl font-bold">{stats.total}</div>
-                <div className="text-blue-200">Snippets</div>
+            {/* Animated Stats */}
+            <div className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-8 mb-8">
+              <div className="text-center bg-white/10 backdrop-blur-sm rounded-xl p-6 min-w-[120px]">
+                <FiCode className="mx-auto text-2xl mb-2 text-blue-200" />
+                <div className="text-3xl md:text-4xl font-bold mb-1">
+                  {loading ? (
+                    <div className="animate-pulse bg-white/20 h-8 w-12 mx-auto rounded"></div>
+                  ) : (
+                    <CountingNumber 
+                      number={stats.total} 
+                      className="text-white"
+                      duration={2000}
+                    />
+                  )}
+                </div>
+                <div className="text-blue-200 text-sm font-medium">Snippets</div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold">{stats.languages}</div>
-                <div className="text-blue-200">Languages</div>
+              
+              <div className="text-center bg-white/10 backdrop-blur-sm rounded-xl p-6 min-w-[120px]">
+                <svg className="mx-auto text-2xl mb-2 text-blue-200 w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+                <div className="text-3xl md:text-4xl font-bold mb-1">
+                  {loading ? (
+                    <div className="animate-pulse bg-white/20 h-8 w-12 mx-auto rounded"></div>
+                  ) : (
+                    <CountingNumber 
+                      number={stats.languages} 
+                      className="text-white"
+                      duration={2200}
+                    />
+                  )}
+                </div>
+                <div className="text-blue-200 text-sm font-medium">Languages</div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold">{stats.authors}</div>
-                <div className="text-blue-200">Contributors</div>
+              
+              <div className="text-center bg-white/10 backdrop-blur-sm rounded-xl p-6 min-w-[120px]">
+                <FiUsers className="mx-auto text-2xl mb-2 text-blue-200" />
+                <div className="text-3xl md:text-4xl font-bold mb-1">
+                  {loading ? (
+                    <div className="animate-pulse bg-white/20 h-8 w-12 mx-auto rounded"></div>
+                  ) : (
+                    <CountingNumber 
+                      number={stats.authors} 
+                      className="text-white"
+                      duration={2400}
+                    />
+                  )}
+                </div>
+                <div className="text-blue-200 text-sm font-medium">Contributors</div>
               </div>
             </div>
 
@@ -137,6 +175,29 @@ const ExplorePage = () => {
 
           {/* Snippets Grid */}
           <div className="flex-1">
+            {/* Results Counter */}
+            <div className="mb-6 flex items-center justify-between">
+              <div className="text-gray-600">
+                Showing{' '}
+                <span className="font-semibold">
+                  <CountingNumber 
+                    number={filteredSnippets.length} 
+                    className="text-blue-600"
+                    duration={800}
+                  />
+                </span>{' '}
+                of{' '}
+                <span className="font-semibold">
+                  <CountingNumber 
+                    number={stats.total} 
+                    className="text-blue-600"
+                    duration={800}
+                  />
+                </span>{' '}
+                snippets
+              </div>
+            </div>
+
             {loading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {[...Array(6)].map((_, i) => (

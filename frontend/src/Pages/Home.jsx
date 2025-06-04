@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { SplittingText } from '@/components/animate-ui/text/splitting';
+import {Tab,TabGroup,TabList,TabPanel,TabPanels,} from '@/components/animate-ui/headless/tabs';
+import { LiquidButton } from '@/components/animate-ui/buttons/liquid';
+import ScrollReveal from '../components/ScrollReveal';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -10,6 +14,7 @@ const Home = () => {
       {/* Dot pattern for texture */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(#3B82F6_1px,transparent_1px)] [background-size:20px_20px] opacity-[0.08]"></div>
+        {/* <HexagonBackground className="absolute inset-0 -z-10 opacity-60 text-red-500" /> */}
       </div>
       {/* Top gradient blob */}
       <div
@@ -28,18 +33,26 @@ const Home = () => {
       {/* Hero Section */}
       <div className="px-6 pt-14 lg:px-8">
         <div className="max-w-6xl mx-auto pt-10 md:pt-20">
+          <ScrollReveal direction="up" delay={0.2}>
           <div className="text-center mb-16">
             <h1 className="text-[clamp(3rem,10vw,5rem)] font-extrabold text-gray-900 leading-tight">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
-                DevForge
-              </span>
-            </h1>
-            <p className="mt-6 text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
-              Forge your coding future—create, compile, and collaborate.
-            </p>
-            {/* You can add a cute "Log in" button here if desired */}
-          </div>
+             <SplittingText
+        className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600"
+        text="DevForge"
+        type="chars"
+      />
+    </h1>
+    <div className="mt-6 text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
+      <SplittingText
+        text="Forge your coding future—create, compile, and collaborate."
+        delay={1000}
+        type="words"
+      />
+    </div>
+    </div>
+    </ScrollReveal>
 
+ <ScrollReveal direction="up" delay={0.4}>
           {/* Feature Tabs */}
           <div className="bg-white rounded-xl shadow-xl overflow-hidden">
             <div className="border-b border-gray-200">
@@ -241,7 +254,10 @@ const Home = () => {
               )}
             </div>
           </div>
+          </ScrollReveal>
 
+
+        <ScrollReveal direction="up" delay={0.2}>
           {/* Feature Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
             {/* Collaboration Card */}
@@ -290,6 +306,7 @@ const Home = () => {
               </div>
             </div>
           </div>
+          </ScrollReveal>
         </div>
       </div>
 

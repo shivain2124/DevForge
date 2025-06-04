@@ -5,6 +5,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import CodeEditor from '../components/CodeEditor';
 import TagsInput from '../components/TagsInput';
 import {useCollaboration} from '../hooks/useCollaboration';
+import { TypingText } from '@/components/animate-ui/text/typing';
 
 // Language maps and constants
 const languageMap = {
@@ -303,16 +304,32 @@ const username = user?.username || user?.name || user?.email || 'Guest';
 
   return (
     <div className={uiClasses.container}>
-      <h1 className={uiClasses.title}>
-        {editingId ? 'Edit Code Snippet' : 'Code Compiler'}
-      </h1>
-      
-      {/* Edit mode indicator */}
-      {editingId && (
-        <div className="mb-4 p-3 bg-blue-100 border border-blue-300 rounded-lg text-blue-800 text-center">
-          <span className="font-semibold">Editing Mode:</span> You are currently editing an existing snippet
-        </div>
+    <h1 className={uiClasses.title}>
+      {editingId ? (
+        <TypingText
+          className="text-3xl md:text-4xl font-bold text-indigo-600"
+          text="Edit Code Snippet"
+          cursor
+          cursorClassName="h-8 md:h-9 bg-blue-600"
+          speed={50}
+        />
+      ) : (
+        <TypingText
+          className="text-3xl md:text-4xl font-bold text-indigo-600"
+          text="Code Compiler"
+          cursor
+          cursorClassName="h-8 md:h-9 bg-blue-600"
+          speed={80}
+        />
       )}
+    </h1>
+    
+    {/* Edit mode indicator */}
+    {editingId && (
+      <div className="mb-4 p-3 bg-blue-100 border border-blue-300 rounded-lg text-blue-800 text-center animate-fade-in">
+        <span className="font-semibold">Editing Mode:</span> You are currently editing an existing snippet
+      </div>
+    )}
 
      <div className="flex flex-col md:flex-row gap-6 mb-8">
   {/* LEFT: Main form section */}

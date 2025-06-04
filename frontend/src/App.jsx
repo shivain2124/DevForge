@@ -17,34 +17,40 @@ import SignupPage from './Pages/SignupPage'
 import ExplorePage from './Pages/Explore'
 import SnippetDetailPage from './Pages/SnippetDetailPage'
 import LikedSnippetPage from './Pages/LikedSnippetPage'
+import SmoothScrolling from './components/SmoothScrolling'
+import PageTransition from './components/PageTransition'
+import { AnimatePresence } from 'framer-motion'
 
 
 function App() {
+
   return(
-  <AuthProvider>
-    <div>
-    <Navbar/>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/auth" element={<LoginPage/>} />
-      <Route path="/login" element={<Login/>} />
-      <Route path="/snippets" element={<Snippets />} />
-      <Route path="/compiler" element={<Compiler/>} />
-      <Route path='/forgot-password' element={<ForgotPasswordPage />}/>
-      <Route path="/signup" element={<SignupPage />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/settings" element={<SettingsPage/>} />
-      <Route path="/explore" element={<ExplorePage />} />
-      <Route path="/snippet/:id" element={<SnippetDetailPage />} />
-      {/* <Route path='/share' */}
-      <Route path='/discussion/:postId' element={<DiscussionPage/>} />
-      <Route path="/liked" element={<LikedSnippetPage />} />
-      <Route path="/*" element={<NotFoundPage/>}/></Routes>
-      </div>
-      </AuthProvider>
-
-
+   <AuthProvider>
+      <SmoothScrolling>
+        <div>
+          <Navbar/>
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+              <Route path="/auth" element={<PageTransition><LoginPage/></PageTransition>} />
+              <Route path="/login" element={<PageTransition><Login/></PageTransition>} />
+              <Route path="/snippets" element={<PageTransition><Snippets /></PageTransition>} />
+              <Route path="/compiler" element={<PageTransition><Compiler/></PageTransition>} />
+              <Route path='/forgot-password' element={<PageTransition><ForgotPasswordPage /></PageTransition>}/>
+              <Route path="/signup" element={<PageTransition><SignupPage /></PageTransition>} />
+              <Route path="/dashboard" element={<PageTransition><Dashboard /></PageTransition>} />
+              <Route path="/profile" element={<PageTransition><ProfilePage /></PageTransition>} />
+              <Route path="/settings" element={<PageTransition><SettingsPage/></PageTransition>} />
+              <Route path="/explore" element={<PageTransition><ExplorePage /></PageTransition>} />
+              <Route path="/snippet/:id" element={<PageTransition><SnippetDetailPage /></PageTransition>} />
+              <Route path='/discussion/:postId' element={<PageTransition><DiscussionPage/></PageTransition>} />
+              <Route path="/liked" element={<PageTransition><LikedSnippetPage /></PageTransition>} />
+              <Route path="/*" element={<PageTransition><NotFoundPage/></PageTransition>}/>
+            </Routes>
+          </AnimatePresence>
+        </div>
+      </SmoothScrolling>
+    </AuthProvider>
   );
 }
 
