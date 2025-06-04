@@ -1,9 +1,10 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect,useMemo } from 'react';
 import { snippetService } from '../services/snippet.service';
 import { useAuth } from '../context/auth.context';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import CodeEditor from '../components/CodeEditor';
 import TagsInput from '../components/TagsInput';
+import {useCollaboration} from '../hooks/useCollaboration';
 
 // Language maps and constants
 const languageMap = {
@@ -56,6 +57,13 @@ const Compiler = () => {
   const [searchParams] = useSearchParams();
   const [visibility, setVisibility] = useState('public');
   
+  const roomId = searchParams.get('id') || 'default-room';
+const { user } = useAuth();
+const username = user?.username || user?.name || user?.email || 'Guest';
+
+
+  const { users, sendCodeChange } = useCollaboration(roomId, username, setCode);
+
   // Theme state with localStorage persistence
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('theme') || 'dark';
@@ -248,7 +256,8 @@ const Compiler = () => {
   // Code change handler
   const handleCodeChange = useCallback((newCode) => {
     setCode(newCode);
-  }, []);
+    sendCodeChange(newCode)
+  }, [sendCodeChange]);
 
   const handleVisibilityChange = (e) => {
   setVisibility(e.target.value);
@@ -299,39 +308,82 @@ const Compiler = () => {
           <span className="font-semibold">Editing Mode:</span> You are currently editing an existing snippet
         </div>
       )}
-      
-      {/* Title input */}
-      <div className="mb-4">
-        <input
-          type="text"
-          value={title}
-          onChange={handleTitleChange}
-          placeholder="Enter snippet title (required)"
-          className={uiClasses.input}
-          required
-        />
-      </div>
 
-      <div className="mb-4">
-        <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-          Visibility
-        </label>
-        <select
-          value={visibility} onChange={handleVisibilityChange} className={uiClasses.select}
-        >
-          <option value="public">🌐 Public - Visible to everyone</option>
-          <option value="private">🔒 Private - Only visible to you</option>
-        </select>
-      </div>
-  
-      {/* Tags Input Component */}
-      <TagsInput 
-        tags={tags}
-        onAddTag={handleAddTag}
-        onRemoveTag={handleRemoveTag}
-        suggestedTags={languageTags[language] || []}
-        theme={theme}
+     <div className="flex flex-col md:flex-row gap-6 mb-8">
+  {/* LEFT: Main form section */}
+  <div className="flex-1">
+    {/* Title input */}
+    <div className="mb-4">
+      <input
+        type="text"
+        value={title}
+        onChange={handleTitleChange}
+        placeholder="Enter snippet title (required)"
+        className={uiClasses.input}
+        required
       />
+    </div>
+
+    {/* Visibility select */}
+    <div className="mb-4">
+      <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+        Visibility
+      </label>
+      <select
+        value={visibility}
+        onChange={handleVisibilityChange}
+        className={uiClasses.select}
+      >
+        <option value="public">🌐 Public - Visible to everyone</option>
+        <option value="private">🔒 Private - Only visible to you</option>
+      </select>
+    </div>
+
+    {/* Tags input */}
+    <TagsInput 
+      tags={tags}
+      onAddTag={handleAddTag}
+      onRemoveTag={handleRemoveTag}
+      suggestedTags={languageTags[language] || []}
+      theme={theme}
+    />
+  </div>
+
+  {/* RIGHT: Collaboration panel */}
+  <div className="w-full md:w-96 bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 flex flex-col items-center">
+    <h2 className="text-xl font-bold mb-3 text-indigo-600 dark:text-indigo-400">👥 Collaboration</h2>
+    <ul className="mb-4 w-full">
+      {users.length === 0 ? (
+        <li className="text-gray-400 text-center">No collaborators yet</li>
+      ) : (
+        users.map((u) => (
+          <li key={u} className="py-1 px-2 rounded bg-indigo-50 dark:bg-indigo-900 mb-2 text-indigo-700 dark:text-indigo-200 text-center">
+            {u}
+          </li>
+        ))
+      )}
+    </ul>
+    <div className="w-full">
+      <input
+        className="w-full p-2 rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-center font-mono text-xs"
+        value={window.location.href}
+        readOnly
+        onFocus={e => e.target.select()}
+      />
+      <button
+        className="mt-2 w-full px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded transition"
+        onClick={() => navigator.clipboard.writeText(window.location.href)}
+      >
+        Copy Share Link
+      </button>
+      <small className="block mt-1 text-gray-500 text-center">Share this link to invite others</small>
+    </div>
+  </div>
+</div>
+
+
+      
+       
   
       <div className="mt-6 flex flex-wrap items-center mb-6 gap-4">
         <div className="mr-4">
@@ -448,3 +500,4 @@ const Compiler = () => {
 };
 
 export default Compiler;
+
