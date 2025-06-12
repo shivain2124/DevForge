@@ -5,6 +5,7 @@ import {Tab,TabGroup,TabList,TabPanel,TabPanels,} from '@/components/animate-ui/
 import { LiquidButton } from '@/components/animate-ui/buttons/liquid';
 import ScrollReveal from '../components/ScrollReveal';
 
+
 const Home = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('create');
@@ -91,168 +92,171 @@ const Home = () => {
             </div>
 
             {/* Tab Content */}
-            <div className="p-6 min-h-[17rem] transition-all duration-300">
-              {activeTab === 'create' && (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                      Create & Store Code Snippets
-                    </h2>
-                    <p className="text-gray-600 mb-6">
-                      Save your most useful code snippets in one secure place. Organize with tags, search instantly, and access from anywhere.
-                    </p>
-                    <ul className="space-y-3">
-                      <li className="flex items-start">
-                        <svg className="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span className="text-gray-700">Support for 8+ programming languages</span>
-                      </li>
-                      <li className="flex items-start">
-                        <svg className="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span className="text-gray-700">Powerful search and filtering</span>
-                      </li>
-                      <li className="flex items-start">
-                        <svg className="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span className="text-gray-700">Custom tags and organization</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="bg-gray-900 rounded-lg overflow-hidden">
-                    <div className="flex items-center px-4 py-2 bg-gray-800">
-                      <div className="flex space-x-2">
-                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                      </div>
-                      <div className="ml-4 text-gray-400 text-xs">quicksort.py</div>
-                    </div>
-                    <div className="p-4 font-mono text-sm text-left">
-                      <pre className="text-green-400">def <span className="text-blue-400">quicksort</span><span className="text-white">(arr):</span></pre>
-                      <pre className="text-white ml-4">if len(arr) {'<='} 1:</pre>
-                      <pre className="text-white ml-8">return arr</pre>
-                      <pre className="text-white ml-4">pivot = arr[len(arr) // 2]</pre>
-                      <pre className="text-white ml-4">left = [x for x in arr if x {'<'} pivot]</pre>
-                      <pre className="text-white ml-4">middle = [x for x in arr if x == pivot]</pre>
-                      <pre className="text-white ml-4">right = [x for x in arr if x {'>'} pivot]</pre>
-                      <pre className="text-white ml-4">return quicksort(left) + middle + quicksort(right)</pre>
-                    </div>
-                  </div>
-                </div>
-              )}
+          <div className="p-4 sm:p-6 min-h-[12rem] md:min-h-[17rem] transition-all duration-300">
+  {activeTab === 'create' && (
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-center">
+      <div className="order-2 lg:order-1">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4">
+          Create & Store Code Snippets
+        </h2>
+        <p className="text-sm sm:text-base text-gray-600 mb-4 md:mb-6">
+          Save your most useful code snippets in one secure place. Organize with tags, search instantly, and access from anywhere.
+        </p>
+        <ul className="space-y-2 md:space-y-3">
+          <li className="flex items-start">
+            <svg className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span className="text-sm sm:text-base text-gray-700">Support for 8+ programming languages</span>
+          </li>
+          <li className="flex items-start">
+            <svg className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span className="text-sm sm:text-base text-gray-700">Powerful search and filtering</span>
+          </li>
+          <li className="flex items-start">
+            <svg className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span className="text-sm sm:text-base text-gray-700">Custom tags and organization</span>
+          </li>
+        </ul>
+      </div>
+      <div className="order-1 lg:order-2 bg-gray-900 rounded-lg overflow-hidden">
+        <div className="flex items-center px-3 md:px-4 py-2 bg-gray-800">
+          <div className="flex space-x-1 md:space-x-2">
+            <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-red-500"></div>
+            <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-yellow-500"></div>
+            <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-green-500"></div>
+          </div>
+          <div className="ml-3 md:ml-4 text-gray-400 text-xs">quicksort.py</div>
+        </div>
+        <div className="p-3 md:p-4 font-mono text-xs sm:text-sm text-left overflow-x-auto">
+          <pre className="text-green-400">def <span className="text-blue-400">quicksort</span><span className="text-white">(arr):</span></pre>
+          <pre className="text-white ml-2 sm:ml-4">if len(arr) {'<='} 1:</pre>
+          <pre className="text-white ml-4 sm:ml-8">return arr</pre>
+          <pre className="text-white ml-2 sm:ml-4">pivot = arr[len(arr) // 2]</pre>
+          <pre className="text-white ml-2 sm:ml-4 break-all sm:break-normal">left = [x for x in arr if x {'<'} pivot]</pre>
+          <pre className="text-white ml-2 sm:ml-4 break-all sm:break-normal">middle = [x for x in arr if x == pivot]</pre>
+          <pre className="text-white ml-2 sm:ml-4 break-all sm:break-normal">right = [x for x in arr if x {'>'} pivot]</pre>
+          <pre className="text-white ml-2 sm:ml-4 break-all sm:break-normal">return quicksort(left) + middle + quicksort(right)</pre>
+        </div>
+      </div>
+    </div>
+  )}
 
-              {activeTab === 'compile' && (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                      Compile & Run Instantly
-                    </h2>
-                    <p className="text-gray-600 mb-6">
-                      Write, compile, and execute code in your favorite languages right from your browser. Get instant feedback and see results in real time.
-                    </p>
-                    <ul className="space-y-3">
-                      <li className="flex items-start">
-                        <svg className="h-6 w-6 text-indigo-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                        </svg>
-                        <span className="text-gray-700">One-click code execution</span>
-                      </li>
-                      <li className="flex items-start">
-                        <svg className="h-6 w-6 text-indigo-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6l4 2" />
-                        </svg>
-                        <span className="text-gray-700">Live output and error logs</span>
-                      </li>
-                      <li className="flex items-start">
-                        <svg className="h-6 w-6 text-indigo-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" strokeWidth="2" fill="none"/>
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h8" />
-                        </svg>
-                        <span className="text-gray-700">Supports multiple languages</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="bg-gray-900 rounded-lg overflow-hidden">
-                    <div className="flex items-center px-4 py-2 bg-gray-800">
-                      <span className="text-blue-400 font-bold text-xs mr-2">▶</span>
-                      <span className="text-gray-400 text-xs">main.cpp</span>
-                    </div>
-                    <div className="p-4 font-mono text-sm text-left">
-                      <pre className="text-blue-300">#include &lt;iostream&gt;</pre>
-                      <pre className="text-white">using namespace std;</pre>
-                      <pre className="text-white">int main() {'{'}</pre>
-                      <pre className="text-green-400 ml-4">cout &lt;&lt; "Hello, World!" &lt;&lt; endl;</pre>
-                      <pre className="text-white ml-4">return 0;</pre>
-                      <pre className="text-white">{'}'}</pre>
-                    </div>
-                    <div className="bg-black p-2 text-green-400 text-xs font-mono border-t border-gray-800">
-                      Output: Hello, World!
-                    </div>
-                  </div>
-                </div>
-              )}
+  {activeTab === 'compile' && (
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-center">
+      <div className="order-2 lg:order-1">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4">
+          Compile & Run Instantly
+        </h2>
+        <p className="text-sm sm:text-base text-gray-600 mb-4 md:mb-6">
+          Write, compile, and execute code in your favorite languages right from your browser. Get instant feedback and see results in real time.
+        </p>
+        <ul className="space-y-2 md:space-y-3">
+          <li className="flex items-start">
+            <svg className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-indigo-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            <span className="text-sm sm:text-base text-gray-700">One-click code execution</span>
+          </li>
+          <li className="flex items-start">
+            <svg className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-indigo-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6l4 2" />
+            </svg>
+            <span className="text-sm sm:text-base text-gray-700">Live output and error logs</span>
+          </li>
+          <li className="flex items-start">
+            <svg className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-indigo-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" strokeWidth="2" fill="none"/>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h8" />
+            </svg>
+            <span className="text-sm sm:text-base text-gray-700">Supports multiple languages</span>
+          </li>
+        </ul>
+      </div>
+      <div className="order-1 lg:order-2 bg-gray-900 rounded-lg overflow-hidden">
+        <div className="flex items-center px-3 md:px-4 py-2 bg-gray-800">
+          <span className="text-blue-400 font-bold text-xs mr-2">▶</span>
+          <span className="text-gray-400 text-xs">main.cpp</span>
+        </div>
+        <div className="p-3 md:p-4 font-mono text-xs sm:text-sm text-left overflow-x-auto">
+          <pre className="text-blue-300">#include &lt;iostream&gt;</pre>
+          <pre className="text-white">using namespace std;</pre>
+          <pre className="text-white">int main() {'{'}</pre>
+          <pre className="text-green-400 ml-2 sm:ml-4 break-all sm:break-normal">cout &lt;&lt; "Hello, World!" &lt;&lt; endl;</pre>
+          <pre className="text-white ml-2 sm:ml-4">return 0;</pre>
+          <pre className="text-white">{'}'}</pre>
+        </div>
+        <div className="bg-black p-2 text-green-400 text-xs font-mono border-t border-gray-800">
+          Output: Hello, World!
+        </div>
+      </div>
+    </div>
+  )}
 
-              {activeTab === 'collaborate' && (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                      Collaborate in Real Time
-                    </h2>
-                    <p className="text-gray-600 mb-6">
-                      Work together with friends and teammates. Share code, chat, and co-edit in real time—just like Google Docs for code!
-                    </p>
-                    <ul className="space-y-3">
-                      <li className="flex items-start">
-                        <svg className="h-6 w-6 text-purple-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m9-6.13a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
-                        <span className="text-gray-700">Live co-editing sessions</span>
-                      </li>
-                      <li className="flex items-start">
-                        <svg className="h-6 w-6 text-purple-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h8" />
-                        </svg>
-                        <span className="text-gray-700">Integrated chat and messaging</span>
-                      </li>
-                      <li className="flex items-start">
-                        <svg className="h-6 w-6 text-purple-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" strokeWidth="2" fill="none"/>
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h8" />
-                        </svg>
-                        <span className="text-gray-700">Shareable links for instant access</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="bg-gray-900 rounded-lg overflow-hidden">
-                    <div className="flex items-center px-4 py-2 bg-gray-800">
-                      <span className="text-purple-400 font-bold text-xs mr-2">👥</span>
-                      <span className="text-gray-400 text-xs">collab.js</span>
-                    </div>
-                    <div className="p-4 font-mono text-sm text-left">
-                      <pre className="text-green-400">// User1:</pre>
-                      <pre className="text-blue-400">function <span className="text-white">greet(name) {'{'}</span></pre>
-                      <pre className="text-white ml-4">return `Hello, $&#123;name&#125;!`;</pre>
-                      <pre className="text-white">{'}'}</pre>
-                      <pre className="text-green-400 mt-2">// User2:</pre>
-                      <pre className="text-blue-400">console.<span className="text-white">log(greet('World'));</span></pre>
-                    </div>
-                    <div className="bg-black p-2 text-purple-300 text-xs font-mono border-t border-gray-800 flex items-center">
-                      <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h8" />
-                      </svg>
-                      <span>Live: Editing by Alice & Bob</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
+  {activeTab === 'collaborate' && (
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-center">
+      <div className="order-2 lg:order-1">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4">
+          Collaborate in Real Time
+        </h2>
+        <p className="text-sm sm:text-base text-gray-600 mb-4 md:mb-6">
+          Work together with friends and teammates. Share code, chat, and co-edit in real time—just like Google Docs for code!
+        </p>
+        <ul className="space-y-2 md:space-y-3">
+          <li className="flex items-start">
+            <svg className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-purple-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m9-6.13a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <span className="text-sm sm:text-base text-gray-700">Live co-editing sessions</span>
+          </li>
+          <li className="flex items-start">
+            <svg className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-purple-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h8" />
+            </svg>
+            <span className="text-sm sm:text-base text-gray-700">Integrated chat and messaging</span>
+          </li>
+          <li className="flex items-start">
+            <svg className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-purple-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" strokeWidth="2" fill="none"/>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h8" />
+            </svg>
+            <span className="text-sm sm:text-base text-gray-700">Shareable links for instant access</span>
+          </li>
+        </ul>
+      </div>
+      <div className="order-1 lg:order-2 bg-gray-900 rounded-lg overflow-hidden">
+        <div className="flex items-center px-3 md:px-4 py-2 bg-gray-800">
+          <span className="text-purple-400 font-bold text-xs mr-2">👥</span>
+          <span className="text-gray-400 text-xs">collab.js</span>
+        </div>
+        <div className="p-3 md:p-4 font-mono text-xs sm:text-sm text-left overflow-x-auto">
+          <pre className="text-green-400">// User1:</pre>
+          <pre className="text-blue-400">function <span className="text-white">greet(name) {'{'}</span></pre>
+          <pre className="text-white ml-2 sm:ml-4 break-all sm:break-normal">return `Hello, $&#123;name&#125;!`;</pre>
+          <pre className="text-white">{'}'}</pre>
+          <pre className="text-green-400 mt-2">// User2:</pre>
+          <pre className="text-blue-400 break-all sm:break-normal">console.<span className="text-white">log(greet('World'));</span></pre>
+        </div>
+        <div className="bg-black p-2 text-purple-300 text-xs font-mono border-t border-gray-800 flex items-center">
+          <svg className="h-3 w-3 sm:h-4 sm:w-4 mr-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h8" />
+          </svg>
+          <span className="truncate">Live: Editing by Alice & Bob</span>
+        </div>
+      </div>
+    </div>
+  )}
+</div>
+
+
+
           </div>
           </ScrollReveal>
 
